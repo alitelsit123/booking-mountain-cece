@@ -1,1 +1,1 @@
-@extends('index')
+@extends('layout')
