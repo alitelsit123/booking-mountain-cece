@@ -45,7 +45,9 @@
         font-size: 14px;
         color: #000;
       }
-
+      .slicknav_btn{
+        margin-top:2.5rem;
+      }
 
 
       @media screen and (min-width: 992px) {
@@ -75,29 +77,9 @@
                         <div class="col-xl-5 col-lg-6">
                             <div class="main-menu  d-none d-lg-block">
                                 <nav>
-                                    <ul id="navigation">
-                                        <li><a class="active" href="index.html">home</a></li>
-                                        <li><a href="rooms.html">rooms</a></li>
-                                        <li><a href="about.html">About</a></li>
-                                        <li>
-                                          <a href="#">blog <i class="ti-angle-down"></i></a>
-                                          <ul class="submenu">
-                                              <li><a href="blog.html">blog</a></li>
-                                              <li><a href="single-blog.html">single-blog</a></li>
-                                          </ul>
-                                        </li>
-                                        <li><a href="#">pages <i class="ti-angle-down"></i></a>
-                                            <ul class="submenu">
-                                                <li><a href="elements.html">elements</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="contact.html">Contact</a></li>
-                                        <li class="account-xs"><a href="#">user@gmail.com <i class="ti-angle-down"></i></a>
-                                            <ul class="submenu">
-                                                <li><a href="blog.html">Profile</a></li>
-                                                <li><a href="single-blog.html">My Book</a></li>
-                                            </ul>
-                                        </li>
+                                    <ul id="navigation" style="text-align: left;padding-left: 2rem">
+                                        <li><a class="active" href="index.html">Home</a></li>
+                                        <li><a href="index.html">Berita</a></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -105,14 +87,15 @@
                         <div class="col-xl-2 col-lg-2">
                             <div class="logo-img">
                                 <a href="index.html">
-                                    <img src="img/logo.png" alt="">
+                                    {{-- <img src="logo.png" alt="" width="200px"> --}}
+                                    {{-- <div>lajdf</div> --}}
                                 </a>
                             </div>
                         </div>
                         <div class="col-xl-5 col-lg-4 d-none d-lg-block">
                             <div class="book_room">
                                 <div class="book_btn d-none d-lg-block" style="position: relative;">
-                                    <a class="popup-with-form" href="#test-form">Book A Room</a>
+                                    <a class="popup-with-form" href="#test-form">Booking Sekarang!</a>
                                     
                                     @guest
                                     <a class="popup-with-form" onclick="document.location.href='{{url('login')}}';" style="cursor:pointer;background-color:transparent;font-weight:bold">
