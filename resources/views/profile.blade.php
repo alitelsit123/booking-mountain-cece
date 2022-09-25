@@ -34,6 +34,9 @@
       <li class="nav-item">
         <a class="nav-link" data-toggle="tab" href="#book">My Book</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#friend">My Friends</a>
+      </li>
     </ul>
   </div>
 
@@ -83,6 +86,7 @@
       </div>
       <div>
         <ul class="list-group">
+          
           <li class="list-group-item">
             <div>
               <strong class="pb-2 w-100" style="display:block; border-bottom: 1px solid #ced4da">Trip on {{now()}}</strong>
@@ -105,8 +109,7 @@
               </div>
             </div>
           </li>
-          <li class="list-group-item">Second item</li>
-          <li class="list-group-item">Third item</li>
+
         </ul> 
       </div>
 

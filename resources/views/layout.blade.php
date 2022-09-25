@@ -91,7 +91,7 @@
 
     <!-- header-start -->
     <header>
-        <div class="header-area ">
+        <div class="header-area pt-0" style="background-color: rgba(0, 0, 0, 0.418);">
             <div id="sticky-header" class="main-header-area">
                 <div class="container-fluid p-0">
                     <div class="row align-items-center no-gutters">
@@ -99,15 +99,16 @@
                             <div class="main-menu  d-none d-lg-block">
                                 <nav>
                                     <ul id="navigation" style="text-align: left;padding-left: 2rem">
-                                        <li><a class="active" href="index.html">Home</a></li>
-                                        <li><a href="index.html">Berita</a></li>
+                                        <li><a class="active" href="{{url('/')}}">Home</a></li>
+                                        <li><a href="{{url('/')}}">Berita</a></li>
+                                        <li><a href="{{url('/')}}">How To</a></li>
                                     </ul>
                                 </nav>
                             </div>
                         </div>
                         <div class="col-xl-1 col-lg-1">
                             <div class="logo-img">
-                                <a href="index.html">
+                                <a href="{{url('/')}}">
                                     {{-- <img src="logo.png" alt="" width="200px"> --}}
                                     {{-- <div>lajdf</div> --}}
                                 </a>
