@@ -24,6 +24,10 @@
 </div>
 <!-- bradcam_area_end -->
 
+<div class="alert alert-warning">
+  <strong>Wah Profile mu belum lengkap!</strong> Lengkapi profile mu dulu yuk agar mudah isi form Booking.
+</div>
+
 <!-- ================ contact section start ================= -->
 <section class="contact-section" style="padding-top: 40px">
   <div class="container">

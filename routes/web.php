@@ -21,7 +21,15 @@ Route::get('/logout', [App\Http\Controllers\Auth\AuthController::class, 'logout'
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
 Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'index'])->middleware(['auth']);
+Route::get('/gallery', [App\Http\Controllers\GalleryController::class, 'index']);
 
 Route::prefix('a')->group(function() {
   Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index']);
+
+  Route::get('gallery', [App\Http\Controllers\Admin\GalleryController::class, 'index']);
+  Route::post('gallery/store', [App\Http\Controllers\Admin\GalleryController::class, 'store']);
+  Route::get('gallery/{id}/delete', [App\Http\Controllers\Admin\GalleryController::class, 'destroy']);
+  Route::post('gallery/{id}/update_video', [App\Http\Controllers\Admin\GalleryController::class, 'updateVideo']);
+  Route::get('gallery/{id}/delete_video', [App\Http\Controllers\Admin\GalleryController::class, 'destroyVideo']);
+
 });

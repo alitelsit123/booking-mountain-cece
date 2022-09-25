@@ -99,9 +99,15 @@
                             <div class="main-menu  d-none d-lg-block">
                                 <nav>
                                     <ul id="navigation" style="text-align: left;padding-left: 2rem">
-                                        <li><a class="active" href="{{url('/')}}">Home</a></li>
-                                        <li><a href="{{url('/')}}">Berita</a></li>
-                                        <li><a href="{{url('/')}}">How To</a></li>
+                                        <li><a class="@if (request()->segment(1) === null)
+                                          active
+                                        @endif" href="{{url('/')}}">Home</a></li>
+                                        <li><a class="@if (request()->segment(1) === 'gallery')
+                                          active
+                                        @endif" href="{{url('/gallery')}}">Gallery</a></li>
+                                        <li><a class="@if (request()->segment(1) === 'tutorial')
+                                          active
+                                        @endif" href="{{url('/')}}">How To</a></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -131,7 +137,7 @@
                                       <span class="fa fa-caret-down" style="margin-left: 0.2rem"></span>
                                     </a>
                                     <ul class="right-submenu fade">
-                                      <li style="margin-bottom: 0.75rem;cursor: pointer;" onclick="document.location.href='{{url('profile')}}'">Bookinganku</li>
+                                      <li style="margin-bottom: 0.75rem;cursor: pointer;" onclick="document.location.href='{{url('profile')}}'">Profile</li>
                                       <li onclick="document.location.href='{{url('logout')}}'" style="cursor: pointer;">Logout</li>
                                     </ul>
                                     @endauth
