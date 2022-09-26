@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 
 use App\User;
-
+use App\Installment;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -21,5 +21,7 @@ class DatabaseSeeder extends Seeder
         'nik' => '123456789',
         'role' => 'admin'
       ]);
+      Installment::query()->delete();
+      Installment::create(['price' => 10000]);
     }
 }

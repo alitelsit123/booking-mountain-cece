@@ -19,9 +19,14 @@ Route::get('/register', [App\Http\Controllers\Auth\AuthController::class, 'regis
 Route::post('/register', [App\Http\Controllers\Auth\AuthController::class, 'doRegister']);
 Route::get('/logout', [App\Http\Controllers\Auth\AuthController::class, 'logout']);
 
+
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
 Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'index'])->middleware(['auth']);
 Route::get('/gallery', [App\Http\Controllers\GalleryController::class, 'index']);
+Route::get('/book', [App\Http\Controllers\BookController::class, 'index']);
+Route::post('/book', [App\Http\Controllers\BookController::class, 'doBook']);
+Route::get('/book/payment', [App\Http\Controllers\BookController::class, 'payment']);
+Route::post('/book/payment', [App\Http\Controllers\BookController::class, 'toPayment']);
 
 Route::prefix('a')->middleware(['auth','auth.admin'])->group(function() {
   Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index']);
@@ -32,4 +37,30 @@ Route::prefix('a')->middleware(['auth','auth.admin'])->group(function() {
   Route::post('gallery/{id}/update_video', [App\Http\Controllers\Admin\GalleryController::class, 'updateVideo']);
   Route::get('gallery/{id}/delete_video', [App\Http\Controllers\Admin\GalleryController::class, 'destroyVideo']);
 
+});
+
+Route::get('get_input_member_template', function() {
+  $members = session('members') ?? [];
+  array_push($members, collect([
+    'id' => uniqid(),
+    'name' => '',
+    'phone' => '',
+    'email' => '',
+    'nik' => '',
+    'age' => '',
+    'weight' => '',
+    'country' => 'indonesia',
+    'province' => '',
+    'city' => '',
+    'region' => '',
+    'place' => ''
+  ]));
+  session()->put('members', $members);
+  return view('components.new-members', compact('members'));
+});
+Route::get('get_members_tamplate/{id}', function($id) {
+  $members = session('members');
+  $members = collect($members)->where('id', '!=',$id);
+  session()->put('members', $members->toArray());
+  return view('components.new-members', compact('members'));
 });
