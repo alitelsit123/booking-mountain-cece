@@ -23,7 +23,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
 Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'index'])->middleware(['auth']);
 Route::get('/gallery', [App\Http\Controllers\GalleryController::class, 'index']);
 
-Route::prefix('a')->group(function() {
+Route::prefix('a')->middleware(['auth','auth.admin'])->group(function() {
   Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index']);
 
   Route::get('gallery', [App\Http\Controllers\Admin\GalleryController::class, 'index']);

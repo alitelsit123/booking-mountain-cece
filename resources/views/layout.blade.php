@@ -137,6 +137,11 @@
                                       <span class="fa fa-caret-down" style="margin-left: 0.2rem"></span>
                                     </a>
                                     <ul class="right-submenu fade">
+                                      @auth
+                                        @if (auth()->user()->role === 'admin')
+                                        <li style="margin-bottom: 0.75rem;cursor: pointer;" onclick="document.location.href='{{url('a')}}'">Dashboard Admin</li>                                          
+                                        @endif
+                                      @endauth
                                       <li style="margin-bottom: 0.75rem;cursor: pointer;" onclick="document.location.href='{{url('profile')}}'">Profile</li>
                                       <li onclick="document.location.href='{{url('logout')}}'" style="cursor: pointer;">Logout</li>
                                     </ul>

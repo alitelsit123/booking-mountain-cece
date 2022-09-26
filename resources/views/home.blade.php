@@ -180,6 +180,7 @@
 
 <!-- instragram_area_start -->
 <div class="instragram_area">
+  <h4 style="text-align: right;" class="pr-4"><a href="{{url('gallery')}}" style="text-decoration: underline;">Show More ...</a></h4>
   <div class="single_instagram">
       <img src="img/instragram/1.png" alt="">
       <div class="ovrelay">
