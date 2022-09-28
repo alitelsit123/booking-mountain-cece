@@ -27,6 +27,7 @@ Route::get('/book', [App\Http\Controllers\BookController::class, 'index']);
 Route::post('/book', [App\Http\Controllers\BookController::class, 'doBook']);
 Route::get('/book/payment', [App\Http\Controllers\BookController::class, 'payment']);
 Route::post('/book/payment', [App\Http\Controllers\BookController::class, 'toPayment']);
+Route::get('/book/finish', [App\Http\Controllers\BookController::class, 'finish']);
 
 Route::prefix('a')->middleware(['auth','auth.admin'])->group(function() {
   Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index']);

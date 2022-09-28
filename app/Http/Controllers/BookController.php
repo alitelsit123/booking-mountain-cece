@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 use App\Book;
 use App\BookMember;
 use App\Installment;
+use App\Services\Midtrans\CreateSnapTokenService;
 
 class BookController extends Controller
 {
@@ -17,7 +19,10 @@ class BookController extends Controller
   }
   public function doBook() {
     $incomingDate = explode('/',request('date'));
-    $swapDate = $incomingDate[2].'-'.$incomingDate[1].'-'.$incomingDate[0];
+    $swapDate = $incomingDate[2].'-'.$incomingDate[0].'-'.$incomingDate[1];
+
+    // $limit = Book::withCount('members')->where('date',$swapDate)->get();
+
     session()->put('date', $swapDate);
     return redirect('book');
   }
@@ -46,25 +51,24 @@ class BookController extends Controller
     $peoplePrice = Installment::first()->price * sizeof($members) + Installment::first()->price;
 
     if(session('book')) {
-      $existingBook = Book::find(session('book')['id']);
-      $existingBook->date = session('date');
-      $existingBook->total_price = $peoplePrice;
-      $existingBook->save();
+      $book = Book::find(session('book')['id']);
+      $book->date = session('date');
+      $book->total_price = $peoplePrice;
+      $book->save();
 
-      $existingBook->members()->delete();
+      $book->members()->delete();
       if(sizeof($members) > 0) {
         $_ms = collect($members)->map(function($item) {
           unset($item['id']);
           $item['role'] = 'member';
           return $item;
         })->toArray();
-        $existingBook->members()->createMany($_ms);
-        $_ls = collect($leader)->except(['id'])->toArray();
-        $_ls['role'] = 'leader';
-        $existingBook->members()->create($_ls);
+        $book->members()->createMany($_ms);
       }
-
-      session()->put('book', $existingBook);
+      $_ls = collect($leader)->except(['id'])->toArray();
+      $_ls['role'] = 'leader';
+      $book->members()->create($_ls);
+      session()->put('book', $book);
     } else {
       $book = Book::create([
         'date' => session('date'),
@@ -79,15 +83,20 @@ class BookController extends Controller
           $item['role'] = 'member';
           return $item;
         })->toArray();
-        $_ms['role'] = 'member';
         $book->members()->createMany($_ms)->toArray();
-        $_ls = collect($leader)->except(['id'])->toArray();
-        $_ls['role'] = 'leader';
-        $book->members()->create($_ls);
       }
+      $_ls = collect($leader)->except(['id'])->toArray();
+      $_ls['role'] = 'leader';
+      $book->members()->create($_ls);
       session()->put('book', $book);
     }
 
+    if(!$book->snap_token) {
+      $midtrans = new CreateSnapTokenService($book);
+      $snapToken = $midtrans->getSnapToken();
+      $book->snap_token = $snapToken;
+      $book->save();
+    }
 
     session()->put('leader', $leader);
     session()->put('members', $members);
@@ -97,6 +106,25 @@ class BookController extends Controller
     $book = Book::find(session('book')['id']);
     $leader = $book->members()->whereRole('leader')->first();
     $members = $book->members()->whereRole('member')->get();
+
+    $checkStatusMidtrans = Http::withHeaders([
+      'Accept' => 'application/json',
+      'Content-Type' => 'application/json',
+      'Authorization' => 'Basic '.base64_encode(config('midtrans.server_key'))
+    ])->get('https://api.sandbox.midtrans.com/v2/'.$book->id.'/status');
+    $transaction = $checkStatusMidtrans->json();
+    $book->payment_status = $transaction['transaction_status'];
+    $book->save();
+    if($book->payment_status === 'settlement') {
+      session()->put('leader', null);
+      session()->put('members', []);
+      session()->put('book', null);
+      session()->forget('date');
+      return redirect('book/finish');
+    }
     return view('book-payment',compact('book','members','leader'));
+  }
+  public function finish() {
+    return view('finish');
   }
 }

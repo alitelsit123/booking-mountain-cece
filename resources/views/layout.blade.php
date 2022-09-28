@@ -257,7 +257,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
       <div class="popup_box py-4">
           <div class="popup_inner">
               <h3 class="text-left d-flex align-items-center justify-content-between mb-4">
-                <div>Booking</div>
+                <div>Cek Tanggal Booking</div>
                 <span class="fa fa-times" style="cursor: pointer;" onclick="$.magnificPopup.close()"></span>
               </h3>
               <div class="alert alert-success">
@@ -270,19 +270,24 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                   $_ci = $_[2].'/'.$_[1].'/'.$_[0];
                 }
               @endphp
-              <form action="#">
-                  <div class="row">
-                      <div class="col-xl-12 text-left">
-                          Tanggal
-                          <input id="datepicker" onkeydown="return false;" name="date" value="{{$_ci}}" required class="mt-1" placeholder="Tanggal Mendaki">
-                      </div>
-                      
-    
-                      <div class="col-xl-12">
-                          <button type="submit" class="boxed-btn3">Cek</button>
-                      </div>
+              <div class="row">
+                <div class="col-xl-12 text-left">
+                    {{-- Tanggal --}}
+                    <input id="datepicker" onkeydown="return false;" name="date" value="{{$_ci}}" required class="mt-1" placeholder="Tanggal Mendaki">
+                </div>
+                @error('error_book')
+                  <div class="col-md-12 text-left">
+                    <div class="alert alert-danger">
+                      <strong>Maaf!</strong> {{$message ?? ''}}
+                    </div>
                   </div>
-              </form>
+                @enderror
+
+                <div class="col-xl-12">
+                    <button type="submit" class="boxed-btn3">Cek</button>
+                </div>
+              </div>
+            </div>
           </div>
       </div>
     </form>

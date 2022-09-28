@@ -24,6 +24,10 @@
 </div>
 <!-- bradcam_area_end -->
 
+<div class="alert alert-success alert-pay" style="display: none;">
+  <strong>Refresh Halaman jika sudah membayar.</strong>
+</div>
+
 <!-- ================ contact section start ================= -->
 <section class="contact-section" style="padding-top: 40px">
   <div class="container-fluid">
@@ -51,7 +55,7 @@
             <td>{{$leader->weight}}</td>
           </tr>
         </table> --}}
-        <h3>Orang</h3>
+        <h3 class="mb-4">Anggota Pendakian</h3>
         <table class="table">
           <thead>
             <tr>
@@ -92,12 +96,12 @@
           <div class="card-body">
             <ul class="list-group">
               <li class="list-group-item">Tanggal Pendakian: {{$book->date}}</li>
-              <li class="list-group-item">Jumlah Orang: {{$members->count()}}</li>
+              <li class="list-group-item">Jumlah Orang: {{$members->count()+1}}</li>
               <li class="list-group-item">Total harga: Rp. {{number_format($book->total_price)}}</li>
             </ul>
           </div>
           <div class="card-footer">
-            <button class="btn btn-primary mx-auto btn-block disabled">Bayar Sekarang</button>
+            <button class="btn btn-primary mx-auto btn-block" id="pay-button">Bayar Sekarang</button>
           </div>
         </div>
       </div>
@@ -105,6 +109,29 @@
   </div>
 </section>
 <!-- ================ contact section end ================= -->
+
+<script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}"></script>
+
+@if ($book->snap_token)
+<script>
+  const payButton = document.querySelector('#pay-button');
+  payButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      snap.pay('{{ $book->snap_token }}', {
+          onSuccess: function(result) {
+            $('.alert-pay').show()
+          },
+          onPending: function(result) {
+            $('.alert-pay').show()
+          },
+          onError: function(result) {
+            $('.alert-pay').show()
+          }
+      });
+  });
+</script>
+@endif
+
 <script>
 $(document).ready(function() {
   $('#filter-datepicker').datepicker({
