@@ -113,8 +113,10 @@ class BookController extends Controller
       'Authorization' => 'Basic '.base64_encode(config('midtrans.server_key'))
     ])->get('https://api.sandbox.midtrans.com/v2/'.$book->id.'/status');
     $transaction = $checkStatusMidtrans->json();
-    $book->payment_status = $transaction['transaction_status'];
-    $book->save();
+    if(isset($transaction['transaction_status'])) {
+      $book->payment_status = $transaction['transaction_status'];
+      $book->save();
+    }
     if($book->payment_status === 'settlement') {
       session()->put('leader', null);
       session()->put('members', []);

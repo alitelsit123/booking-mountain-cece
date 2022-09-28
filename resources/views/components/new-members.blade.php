@@ -26,7 +26,7 @@
         <div class="col-md-6 my-2">
           <input 
           type="text" 
-          value="{{uniqid()}}" 
+          value="" 
           name="{{$col.'_'.$row['id']}}" 
           placeholder="{{ucfirst($col)}}" 
           required

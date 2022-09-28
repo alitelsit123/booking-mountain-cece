@@ -1,16 +1,16 @@
 @php
   $leader_fillables = [
-    ['name' => 'leader_name', 'placeholder' => 'Masukkan Nama', 'default_value' => 'user'],
-    ['name' => 'leader_phone', 'placeholder' => 'Masukkan Nomor Hp', 'default_value' => '0895355094422'],
-    ['name' => 'leader_email', 'placeholder' => 'Masukkan Email', 'default_value' => 'user@gmail.com'],
-    ['name' => 'leader_nik', 'placeholder' => 'Masukkan NIK', 'default_value' => '123456789'],
-    ['name' => 'leader_age', 'placeholder' => 'Masukkan Usia', 'default_value' => 22],
-    ['name' => 'leader_weight', 'placeholder' => 'Masukkan Berat Badan', 'default_value' => 165],
+    ['name' => 'leader_name', 'placeholder' => 'Masukkan Nama', 'default_value' => ''],
+    ['name' => 'leader_phone', 'placeholder' => 'Masukkan Nomor Hp', 'default_value' => ''],
+    ['name' => 'leader_email', 'placeholder' => 'Masukkan Email', 'default_value' => ''],
+    ['name' => 'leader_nik', 'placeholder' => 'Masukkan NIK', 'default_value' => ''],
+    ['name' => 'leader_age', 'placeholder' => 'Masukkan Usia', 'default_value' => ''],
+    ['name' => 'leader_weight', 'placeholder' => 'Masukkan Berat Badan', 'default_value' => ''],
     ['name' => 'leader_country', 'placeholder' => 'Masukkan Negara', 'default_value' => 'indonesia'],
-    ['name' => 'leader_province', 'placeholder' => 'Masukkan Provinsi', 'default_value' => 'Yogyakarta'],
-    ['name' => 'leader_city', 'placeholder' => 'Masukkan Kota', 'default_value' => 'Sleman'],
-    ['name' => 'leader_region', 'placeholder' => 'Masukkan Kecamatan', 'default_value' => 'Depok'],
-    ['name' => 'leader_place', 'placeholder' => 'Masukkan Kelurahan', 'default_value' => 'Ringroad Utara'],
+    ['name' => 'leader_province', 'placeholder' => 'Masukkan Provinsi', 'default_value' => ''],
+    ['name' => 'leader_city', 'placeholder' => 'Masukkan Kota', 'default_value' => ''],
+    ['name' => 'leader_region', 'placeholder' => 'Masukkan Kecamatan', 'default_value' => ''],
+    ['name' => 'leader_place', 'placeholder' => 'Masukkan Kelurahan', 'default_value' => ''],
   ];
   $fillables = [
     ['name' => 'member_name', 'placeholder' => 'Masukkan Nama', 'default_value' => 'user'],

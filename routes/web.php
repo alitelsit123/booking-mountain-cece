@@ -42,7 +42,7 @@ Route::prefix('a')->middleware(['auth','auth.admin'])->group(function() {
 
 Route::get('get_input_member_template', function() {
   $members = session('members') ?? [];
-  array_push($members, collect([
+  $member = collect([
     'id' => uniqid(),
     'name' => '',
     'phone' => '',
@@ -55,13 +55,20 @@ Route::get('get_input_member_template', function() {
     'city' => '',
     'region' => '',
     'place' => ''
-  ]));
+  ]);
+  array_push($members, $member);
   session()->put('members', $members);
-  return view('components.new-members', compact('members'));
+  return view('components.create-members', compact('member','members'));
 });
 Route::get('get_members_tamplate/{id}', function($id) {
   $members = session('members');
   $members = collect($members)->where('id', '!=',$id);
-  session()->put('members', $members->toArray());
+  session()->put('members', $members->all());
+  // return view('components.new-members', compact('members'));
+});
+Route::get('create_member/{id}', function($id) {
+  $members = session('members');
+  $members = collect($members)->where('id', '!=',$id);
+  session()->put('members', $members->all());
   return view('components.new-members', compact('members'));
 });

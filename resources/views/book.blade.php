@@ -60,7 +60,7 @@
         <script>
           $('.btn-create-member').click(function() {
             $.get('get_input_member_template', function(_r) {
-              $('.body-member').html(_r)              
+              $('.body-member').append(_r)              
             })
           })
         </script>

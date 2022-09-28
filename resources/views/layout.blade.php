@@ -250,7 +250,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     </footer>
 
     <!-- link that opens popup -->
-
+    
     <!-- form itself end-->
     <form id="test-form" method="POST" action="{{url('book')}}" class="white-popup-block mfp-hide">
       @csrf
