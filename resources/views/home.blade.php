@@ -40,9 +40,9 @@
           <div class="col-xl-5 col-lg-5">
               <div class="about_info">
                   <div class="section_title mb-20px">
-                      <span>About Us</span>
-                      <h3>A Luxuries Mountain <br>
-                          with Nature</h3>
+                      <span>Tentang Kami</span>
+                      <h3>Gunung<br>
+                          Dengan Suasana Alam Terasa</h3>
                   </div>
                   <p>Suscipit libero pretium nullam potenti. Interdum, blandit phasellus consectetuer dolor ornare
                       dapibus enim ut tincidunt rhoncus tellus sollicitudin pede nam maecenas, dolor sem. Neque
@@ -70,9 +70,9 @@
 <!-- video_area_start -->
 <div class="video_area video_bg overlay">
   <div class="video_area_inner text-center">
-      <span>Mountain Budgek View</span>
-      <h3>Relax and Enjoy your <br>
-          Trip </h3>
+      <span>Pemandangan Gunung Budek</span>
+      <h3>Liburan Cerdas <br>
+           </h3>
       <a href="https://www.youtube.com/watch?v=rJD4BrO5tOg" class="video_btn popup-video">
           <i class="fa fa-play"></i>
       </a>
@@ -97,9 +97,9 @@
           <div class="col-xl-5 col-lg-5">
               <div class="about_info">
                   <div class="section_title mb-20px">
-                      <span>Nice and Clean Place</span>
-                      <h3>We Serve Fresh and <br>
-                          Clean View</h3>
+                      <span>Bukit Kita</span>
+                      <h3>Ambil Gambar <br>
+                          Cantik</h3>
                   </div>
                   <p>Suscipit libero pretium nullam potenti. Interdum, blandit phasellus consectetuer dolor ornare
                       dapibus enim ut tincidunt rhoncus tellus sollicitudin pede nam maecenas, dolor sem. Neque
@@ -131,7 +131,7 @@
               <div class="room_heading d-flex justify-content-between align-items-center">
                   <div class="room_heading_inner">
                       {{-- <span>From $250/night</span> --}}
-                      <h3>High Mountain</h3>
+                      <h3>Bukit</h3>
                   </div>
                   {{-- <a href="#" class="line-button">book now</a> --}}
               </div>
@@ -143,7 +143,7 @@
               <div class="room_heading d-flex justify-content-between align-items-center">
                   <div class="room_heading_inner">
                       {{-- <span>From $250/night</span> --}}
-                      <h3>Deluxe Warung</h3>
+                      <h3>Kantin</h3>
                   </div>
                   {{-- <a href="#" class="line-button">book now</a> --}}
               </div>
@@ -180,7 +180,7 @@
 
 <!-- instragram_area_start -->
 <div class="instragram_area">
-  <h4 style="text-align: right;" class="pr-4"><a href="{{url('gallery')}}" style="text-decoration: underline;">Show More ...</a></h4>
+  <h4 style="text-align: right;" class="pr-4"><a href="{{url('gallery')}}" style="text-decoration: underline;">Lebih Banyak ...</a></h4>
   <div class="single_instagram">
       <img src="img/instragram/1.png" alt="">
       <div class="ovrelay">
