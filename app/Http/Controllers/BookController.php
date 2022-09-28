@@ -14,7 +14,10 @@ use App\Services\Midtrans\CreateSnapTokenService;
 class BookController extends Controller
 {
   public function index() {
-    // session()->put('members', []);
+    if(!session('date')) {
+      return redirect('/');
+    }
+
     $members = session('members');
     return view('book', compact('members'));
   }
