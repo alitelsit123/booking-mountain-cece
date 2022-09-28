@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
 
 use App\Book;
 use App\BookMember;
@@ -118,15 +119,20 @@ class BookController extends Controller
       $book->save();
     }
     if($book->payment_status === 'settlement') {
-      session()->put('leader', null);
-      session()->put('members', []);
-      session()->put('book', null);
-      session()->forget('date');
       return redirect('book/finish');
     }
     return view('book-payment',compact('book','members','leader'));
   }
   public function finish() {
+    $book = session('book');
+    $leader = $book->members()->whereRole('leader')->first();
+    Mail::to($leader->email)->send(new \App\Mail\InvoiceEmail($book));
+
+    session()->put('leader', null);
+    session()->put('members', []);
+    session()->put('book', null);
+    session()->forget('date');
+
     return view('finish');
   }
 }

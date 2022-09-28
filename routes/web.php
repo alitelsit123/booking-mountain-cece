@@ -29,6 +29,11 @@ Route::get('/book/payment', [App\Http\Controllers\BookController::class, 'paymen
 Route::post('/book/payment', [App\Http\Controllers\BookController::class, 'toPayment']);
 Route::get('/book/finish', [App\Http\Controllers\BookController::class, 'finish']);
 
+Route::get('/test-mail', function() {
+  \Illuminate\Support\Facades\Mail::to('hikmalkoko3@gmail.com')->send(new \App\Mail\InvoiceEmail);
+  return 'Email Sent';
+});
+
 Route::prefix('a')->middleware(['auth','auth.admin'])->group(function() {
   Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index']);
 

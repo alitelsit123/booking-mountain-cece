@@ -28,7 +28,7 @@
 <section class="contact-section" style="padding-top: 40px">
   <div class="container">
     <div class="alert alert-success">
-      <strong>Berhasil.</strong> Yey pembayaranmu dikonfirmasi.
+      <strong>Berhasil.</strong> Yey pembayaranmu dikonfirmasi. Invoice dikirimkan melalui email Ketua
     </div>
   </div>
 
