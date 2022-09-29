@@ -14,7 +14,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xl-6 col-lg-6 col-sm-12 m-auto">
-                <h3>INVOICE</h3>
+                <h3>{{$book->invoice_code}}</h3>
                 <p> Hallo, {{$leader->name}}</p>
                 <p>Pembayaran untuk Booking Gunung Budheg berhasil.</p>
                 <p>Rincian: </p>
@@ -39,16 +39,16 @@
                     <tr>
                       <th scope="row">{{$leader->name}}</th>
                       <td>{{$leader->phone}}</td>
-                      <td>{{$leader->age}}</td>
-                      <td>{{$leader->weight}}</td>
+                      <td>{{$leader->age}} Th</td>
+                      <td>{{$leader->weight}} Kg</td>
                       <td>{{$leader->role}}</td>
                     </tr>
                     @foreach ($members as $row)
                       <tr>
                         <th scope="row">{{$row->name}}</th>
                         <td>{{$row->phone}}</td>
-                        <td>{{$row->age}}</td>
-                        <td>{{$row->weight}}</td>
+                        <td>{{$row->age}} Th</td>
+                        <td>{{$row->weight}} Kg</td>
                         <td>{{$row->role}}</td>
                       </tr>
                     @endforeach

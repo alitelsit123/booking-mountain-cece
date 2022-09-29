@@ -20,6 +20,7 @@ class CreateBooksTable extends Migration
             $table->string('payment_status')->default('pending');
             $table->timestamp('payment_success_at')->nullable();
             $table->string('snap_token')->nullable();
+            $table->timestamps();
         });
     }
 

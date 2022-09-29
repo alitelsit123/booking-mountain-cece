@@ -26,7 +26,7 @@ class BookController extends Controller
     $swapDate = $incomingDate[2].'-'.$incomingDate[0].'-'.$incomingDate[1];
 
     // $limit = Book::withCount('members')->where('date',$swapDate)->get();
-
+    session()->put('book', null);
     session()->put('date', $swapDate);
     return redirect('book');
   }
@@ -53,11 +53,13 @@ class BookController extends Controller
     }
     
     $peoplePrice = Installment::first()->price * sizeof($members) + Installment::first()->price;
-
     if(session('book')) {
       $book = Book::find(session('book')['id']);
       $book->date = session('date');
       $book->total_price = $peoplePrice;
+      if(!$book->invoice_code) {
+        $book->invoice_code = 'INV.'.\time().\mt_rand(0,99).'-'.$leader['nik'];
+      }
       $book->save();
 
       $book->members()->delete();
@@ -79,7 +81,8 @@ class BookController extends Controller
         'total_price' => $peoplePrice,
         'payment_status' => 'pending',
         'payment_success_at' => null,
-        'snap_token' => null
+        'snap_token' => null,
+        'invoice_code' => 'INV.'.\time().\mt_rand(0,99).'-'.$leader['nik']
       ]);
       if(sizeof($members) > 0) {
         $_ms = collect($members)->except(['id'])->map(function($item) {
@@ -115,10 +118,11 @@ class BookController extends Controller
       'Accept' => 'application/json',
       'Content-Type' => 'application/json',
       'Authorization' => 'Basic '.base64_encode(config('midtrans.server_key'))
-    ])->get('https://api.sandbox.midtrans.com/v2/'.$book->id.'/status');
+    ])->get('https://api.sandbox.midtrans.com/v2/'.$book->invoice_code.'/status');
     $transaction = $checkStatusMidtrans->json();
     if(isset($transaction['transaction_status'])) {
       $book->payment_status = $transaction['transaction_status'];
+      $book->payment_success_at = now();
       $book->save();
     }
     if($book->payment_status === 'settlement') {

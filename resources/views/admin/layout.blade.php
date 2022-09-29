@@ -49,8 +49,8 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-      <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Administrator</span>
+      {{-- <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> --}}
+      <span class="brand-text font-weight-light">Budheg Administrator</span>
     </a>
 
     <!-- Sidebar -->
@@ -58,7 +58,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          {{-- <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image"> --}}
         </div>
         <div class="info">
           <a href="#" class="d-block">{{auth()->user()->email}}</a>
@@ -66,7 +66,7 @@
       </div>
 
       <!-- SidebarSearch Form -->
-      <div class="form-inline">
+      {{-- <div class="form-inline">
         <div class="input-group" data-widget="sidebar-search">
           <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
           <div class="input-group-append">
@@ -75,7 +75,7 @@
             </button>
           </div>
         </div>
-      </div>
+      </div> --}}
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
@@ -83,7 +83,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
+            <a href="{{url('a')}}" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -92,8 +92,8 @@
           </li>
 
           <li class="nav-item menu-open">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+            <a href="{{url('a/visitor')}}" class="nav-link">
+              <i class="nav-icon fas fa-user-secret"></i>
               <p>
                 Manage Pengunjung
               </p>
@@ -101,8 +101,8 @@
           </li>
 
           <li class="nav-item menu-open">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+            <a href="{{url('a/finance')}}" class="nav-link">
+              <i class="nav-icon fas fa-money-check-alt"></i>
               <p>
                 Laporan Keuangan
               </p>
@@ -110,26 +110,26 @@
           </li>
 
           <li class="nav-item menu-open">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+            <a href="{{'/a/user'}}" class="nav-link">
+              <i class="nav-icon fas fa-user-circle"></i>
               <p>
                 Pengguna
               </p>
             </a>
           </li>
 
-          <li class="nav-item menu-open">
+          {{-- <li class="nav-item menu-open">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Inbox
               </p>
             </a>
-          </li>
+          </li> --}}
 
           <li class="nav-item menu-open">
             <a href="{{url('/a/gallery')}}" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon fas fa-photo-video"></i>
               <p>
                 Manage Gallery
               </p>
@@ -138,7 +138,7 @@
 
           <li class="nav-item menu-open">
             <a href="{{url('logout')}}" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon fas fa-door-open"></i>
               <p>
                 Logout
               </p>

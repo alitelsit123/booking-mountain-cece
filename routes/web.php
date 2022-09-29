@@ -37,6 +37,16 @@ Route::get('/test-mail', function() {
 Route::prefix('a')->middleware(['auth','auth.admin'])->group(function() {
   Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index']);
 
+  Route::prefix('visitor')->group(function() {
+    Route::get('/', [App\Http\Controllers\Admin\VisitorController::class,'index']);
+  });
+  Route::prefix('user')->group(function() {
+    Route::get('/', [App\Http\Controllers\Admin\UserController::class,'index']);
+  });
+  Route::prefix('finance')->group(function() {
+    Route::get('/', [App\Http\Controllers\Admin\FinanceController::class,'index']);
+  });
+
   Route::get('gallery', [App\Http\Controllers\Admin\GalleryController::class, 'index']);
   Route::post('gallery/store', [App\Http\Controllers\Admin\GalleryController::class, 'store']);
   Route::get('gallery/{id}/delete', [App\Http\Controllers\Admin\GalleryController::class, 'destroy']);

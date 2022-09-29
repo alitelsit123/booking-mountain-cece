@@ -19,6 +19,11 @@ class AuthController extends Controller
 
     if (auth()->attempt(['email' => $email,'password' => $password])) {
       session()->regenerate();
+      $user = User::whereEmail($email)->first();
+      if($user->role === 'admin') {
+        return redirect()->intended('a');
+      }
+      
       return redirect()->intended('/');
     }
 

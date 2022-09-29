@@ -20,7 +20,7 @@ class CreateSnapTokenService extends Midtrans
         $leader = $this->order->members()->whereRole('leader')->first();
         $params = [
             'transaction_details' => [
-                'order_id' => $this->order->id,
+                'order_id' => $this->order->invoice_code,
                 'gross_amount' => $this->order->total_price,
             ],
             'item_details' => [
