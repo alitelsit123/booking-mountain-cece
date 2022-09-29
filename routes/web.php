@@ -21,13 +21,17 @@ Route::get('/logout', [App\Http\Controllers\Auth\AuthController::class, 'logout'
 
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
+Route::get('/help', [App\Http\Controllers\HomeController::class, 'help']);
 Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'index'])->middleware(['auth']);
+Route::post('/profile/update', [App\Http\Controllers\ProfileController::class, 'update'])->middleware(['auth']);
 Route::get('/gallery', [App\Http\Controllers\GalleryController::class, 'index']);
 Route::get('/book', [App\Http\Controllers\BookController::class, 'index']);
 Route::post('/book', [App\Http\Controllers\BookController::class, 'doBook']);
 Route::get('/book/payment', [App\Http\Controllers\BookController::class, 'payment']);
 Route::post('/book/payment', [App\Http\Controllers\BookController::class, 'toPayment']);
 Route::get('/book/finish', [App\Http\Controllers\BookController::class, 'finish']);
+
+
 
 Route::get('/test-mail', function() {
   \Illuminate\Support\Facades\Mail::to('hikmalkoko3@gmail.com')->send(new \App\Mail\InvoiceEmail);

@@ -107,7 +107,7 @@
                                         @endif" href="{{url('/gallery')}}">Galeri</a></li>
                                         <li><a class="@if (request()->segment(1) === 'tutorial')
                                           active
-                                        @endif" href="{{url('/')}}">Bantuan</a></li>
+                                        @endif" href="{{url('/help')}}">Bantuan</a></li>
                                     </ul>
                                 </nav>
                             </div>

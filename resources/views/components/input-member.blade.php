@@ -33,7 +33,7 @@
   <div class="col-md-6 my-2">
     <input 
     type="text" 
-    value="{{isset($row['default_value']) ? $row['default_value']: ''}}" 
+    value="{{request('me') === 'leader' ? auth()->user()->{str_replace('leader_', '', $row['name'])}: ''}}" 
     name="{{$row['name']}}" 
     placeholder="{{$row['placeholder']}}" 
     required

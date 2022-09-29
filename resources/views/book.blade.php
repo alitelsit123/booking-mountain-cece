@@ -34,7 +34,14 @@
     <form action="{{url('book/payment')}}" method="post">
       @csrf
       <div class="row">
-        <h3 class="col-xl-12 text-left mb-2 font-weight-bold">Ketua Kelompok</h3>
+        <div class="col-md-12 px-0">
+          <div class="d-flex justify-content-between align-items-center">
+            <h3 class="text-left mb-2 font-weight-bold">Ketua Kelompok</h3>
+            @auth
+            <a href="{{url('/book?me=leader')}}" class="btn btn-success btn-sm">Isi Dengan Data Saya</a>              
+            @endauth
+          </div>
+        </div>
         @include('components.input-member', ['leader' => true])
   
         <div class="col-xl-12 text-left mt-4">
@@ -43,7 +50,7 @@
           </div>
         </div>
   
-        <h3 class="col-xl-12 text-left font-weight-bold mb-4">Anggota</h3>
+        <h3 class="col-xl-12 text-left font-weight-bold mb-4 px-0">Anggota</h3>
         <div class="col-md-12 px-0">
           <div class="body-member">
               @include('components.new-members')
