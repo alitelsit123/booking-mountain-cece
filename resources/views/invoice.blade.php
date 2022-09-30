@@ -26,7 +26,7 @@
                 <br>
                 <h3 class="mb-4">Anggota</h3>
                 <table class="table">
-                  <thead>
+                  <thead class="thead-dark">
                     <tr>
                       <th scope="col">Nama</th>
                       <th scope="col">Nomor Hp</th>
