@@ -28,7 +28,7 @@
 <section class="contact-section" style="padding-top: 40px">
   <div class="container">
     <div class="alert alert-success">
-      <strong>Berhasil.</strong> Yey pembayaranmu dikonfirmasi. Invoice dikirimkan melalui email Ketua atau <a href="{{url('/invoice'.'/'.$book->id)}}"><strong style="text-decoration: underline;">Klik Disini</strong></a> untuk lihat Invoice.
+      <strong>Berhasil.</strong> Yey pembayaranmu dikonfirmasi. Invoice dikirimkan melalui email Ketua atau <a href="{{url('/invoice'.'/'.$book->id)}}" target="_blank"><strong style="text-decoration: underline;">Klik Disini</strong></a> untuk lihat Invoice.
     </div>
   </div>
 
