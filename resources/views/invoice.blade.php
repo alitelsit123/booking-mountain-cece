@@ -13,7 +13,7 @@
     @endphp
     <div class="container">
         <div class="row">
-            <div class="col-xl-6 col-lg-6 col-sm-12 m-auto">
+            <div class="col-xl-6 col-lg-6 col-sm-12 m-auto py-4" style="border: 1px solid rgba(0, 0, 0, 0.144)">
                 <h3>{{$book->invoice_code}}</h3>
                 <p> Hallo, {{$leader->name}}</p>
                 <p>Pembayaran untuk Booking Gunung Budheg berhasil.</p>
