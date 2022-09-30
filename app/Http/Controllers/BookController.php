@@ -126,12 +126,13 @@ class BookController extends Controller
       $book->save();
     }
     if($book->payment_status === 'settlement') {
-      return redirect('book/finish');
+      return redirect('book/'.$book->id.'/finish');
     }
     return view('book-payment',compact('book','members','leader'));
   }
-  public function finish() {
-    $book = session('book');
+  public function finish($book_id) {
+    $book = Book::findOrFail($book_id);
+
     $leader = $book->members()->whereRole('leader')->first();
     Mail::to($leader->email)->send(new \App\Mail\InvoiceEmail($book));
 
