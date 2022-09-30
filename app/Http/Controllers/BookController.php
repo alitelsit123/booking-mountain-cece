@@ -140,6 +140,6 @@ class BookController extends Controller
     session()->put('book', null);
     session()->forget('date');
 
-    return view('finish');
+    return view('finish', compact('book'));
   }
 }

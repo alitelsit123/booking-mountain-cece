@@ -21,6 +21,7 @@ Route::get('/logout', [App\Http\Controllers\Auth\AuthController::class, 'logout'
 
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
+Route::get('/invoice/{book_id}', [App\Http\Controllers\HomeController::class, 'invoice']);
 Route::get('/help', [App\Http\Controllers\HomeController::class, 'help']);
 Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'index'])->middleware(['auth']);
 Route::post('/profile/update', [App\Http\Controllers\ProfileController::class, 'update'])->middleware(['auth']);
