@@ -91,3 +91,63 @@ Route::get('create_member/{id}', function($id) {
   session()->put('members', $members->all());
   return view('components.new-members', compact('members'));
 });
+Route::get('get_province', function() {
+  $search = request('term');
+  return \App\Province::when($search, function($query) use ($search) {
+    $query->where('name','like','%'.$search.'%');
+  })->limit(10)->get()->map(function($item) {
+    $item->id = $item->name;
+    $item->text = $item->name;
+    return $item;
+  })->groupBy('id')->map(function($item,$index) {
+    return [
+      'id' => $index,
+      'text' => $index
+    ];
+  })->values();
+});
+Route::get('get_city', function() {
+  $search = request('term');
+  return \App\Regency::when($search, function($query) use ($search) {
+    $query->where('name','like','%'.$search.'%');
+  })->limit(10)->get()->map(function($item) {
+    $item->id = $item->name;
+    $item->text = $item->name;
+    return $item;
+  })->groupBy('id')->map(function($item,$index) {
+    return [
+      'id' => $index,
+      'text' => $index
+    ];
+  })->values();
+});
+Route::get('get_region', function() {
+  $search = request('term');
+  return \App\District::when($search, function($query) use ($search) {
+    $query->where('name','like','%'.$search.'%');
+  })->limit(10)->get()->map(function($item) {
+    $item->id = $item->name;
+    $item->text = $item->name;
+    return $item;
+  })->groupBy('id')->map(function($item,$index) {
+    return [
+      'id' => $index,
+      'text' => $index
+    ];
+  })->values();
+});
+Route::get('get_place', function() {
+  $search = request('term');
+  return \App\Village::when($search, function($query) use ($search) {
+    $query->where('name','like','%'.$search.'%');
+  })->limit(10)->get()->map(function($item) {
+    $item->id = $item->name;
+    $item->text = $item->name;
+    return $item;
+  })->groupBy('id')->map(function($item,$index) {
+    return [
+      'id' => $index,
+      'text' => $index
+    ];
+  })->values();
+});

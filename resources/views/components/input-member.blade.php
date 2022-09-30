@@ -7,30 +7,77 @@
     ['name' => 'leader_age', 'placeholder' => 'Masukkan Usia', 'default_value' => ''],
     ['name' => 'leader_weight', 'placeholder' => 'Masukkan Berat Badan', 'default_value' => ''],
     ['name' => 'leader_country', 'placeholder' => 'Masukkan Negara', 'default_value' => 'indonesia'],
-    ['name' => 'leader_province', 'placeholder' => 'Masukkan Provinsi', 'default_value' => ''],
-    ['name' => 'leader_city', 'placeholder' => 'Masukkan Kota', 'default_value' => ''],
-    ['name' => 'leader_region', 'placeholder' => 'Masukkan Kecamatan', 'default_value' => ''],
-    ['name' => 'leader_place', 'placeholder' => 'Masukkan Kelurahan', 'default_value' => ''],
-  ];
-  $fillables = [
-    ['name' => 'member_name', 'placeholder' => 'Masukkan Nama', 'default_value' => 'user'],
-    ['name' => 'member_phone', 'placeholder' => 'Masukkan Nomor Hp', 'default_value' => '0895355094422'],
-    ['name' => 'member_email', 'placeholder' => 'Masukkan Email', 'default_value' => 'user@gmail.com'],
-    ['name' => 'member_nik', 'placeholder' => 'Masukkan NIK', 'default_value' => '123456789'],
-    ['name' => 'member_age', 'placeholder' => 'Masukkan Usia', 'default_value' => 22],
-    ['name' => 'member_weight', 'placeholder' => 'Masukkan Berat Badan', 'default_value' => 165],
-    ['name' => 'member_country', 'placeholder' => 'Masukkan Negara', 'default_value' => 'indonesia'],
-    ['name' => 'member_province', 'placeholder' => 'Masukkan Provinsi', 'default_value' => 'Yogyakarta'],
-    ['name' => 'member_city', 'placeholder' => 'Masukkan Kota', 'default_value' => 'Sleman'],
-    ['name' => 'member_region', 'placeholder' => 'Masukkan Kecamatan', 'default_value' => 'Depok'],
-    ['name' => 'member_place', 'placeholder' => 'Masukkan Kelurahan', 'default_value' => 'Ringroad Utara'],
+    ['name' => 'leader_province', 'api' => 'get_province', 'placeholder' => 'Masukkan Provinsi', 'default_value' => '', 'select2' => true],
+    ['name' => 'leader_city', 'api' => 'get_city', 'placeholder' => 'Masukkan Kota', 'default_value' => '', 'select2' => true],
+    ['name' => 'leader_region', 'api' => 'get_region', 'placeholder' => 'Masukkan Kecamatan', 'default_value' => '', 'select2' => true],
+    ['name' => 'leader_place', 'api' => 'get_place', 'placeholder' => 'Masukkan Kelurahan', 'default_value' => '', 'select2' => true],
   ];
 @endphp
-
+<style>
+  .select2-container--default .select2-selection--single{
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    height: 38px;
+    transform: translateY(5px)
+  }
+  .select2-container--default .select2-selection--single .select2-selection__rendered{
+    line-height: unset;
+    opacity: 0.8;
+    font-size: 14px;
+  }
+  .select2-container--default .select2-selection--single .select2-selection__arrow{
+    top:50%;
+    transform: translateY(-50%)
+  }
+  .select2-container{
+    width: 100%!important;
+  }
+</style>
 @if (isset($leader))
 <div class="row mb-2">
   @foreach ($leader_fillables as $i => $row)
   <div class="col-md-6 my-2">
+    @if (isset($row['select2'])) 
+    <select name="{{$row['name']}}" class="js-example-basic-single-{{$row['name']}} w-100 form-control" name="state">
+    </select>
+
+    <script>
+    $(document).ready(function() {
+      $('.js-example-basic-single-{{$row['name']}}').select2({
+        placeholder: '{{$row['placeholder']}}',
+        ajax: {
+          url: '{{$row['api']}}',
+          data: function(params) {
+            @if ($row['name'] === 'leader_city')
+            const province = $('select[name="{{$row['name']}}"]').val()
+            @endif
+            return {
+              ...params,
+              @if ($row['name'] === 'leader_city')
+              province: province,
+              @endif
+            }
+          },
+          processResults: function (data) {
+            console.log(data);
+            return {
+              results: data
+            };
+          }
+        }
+      });
+    });
+    </script>
+    @else
     <input 
     type="text" 
     value="{{request('me') === 'leader' ? auth()->user()->{str_replace('leader_', '', $row['name'])}: ''}}" 
@@ -38,6 +85,7 @@
     placeholder="{{$row['placeholder']}}" 
     required
     class="form-control mt-1">
+    @endif
   </div>
   @endforeach
 </div>
@@ -61,7 +109,6 @@
   </div>
 </div>
 @endif
-
 <script>
   $('.btn-destroy-member').click(function() {
     $(this).parent().parent().parent().remove()

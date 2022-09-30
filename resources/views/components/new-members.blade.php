@@ -21,18 +21,50 @@
     <button type="button" class="btn btn-danger btn-sm btn-destroy-member" data-id='{{$row['id']}}'><span class="fa fa-trash"></span></button>
   </div>
   <div class="card-body">
-    <div class="row mb-2">
+    <div class="row mb-2">      
       @foreach (array_keys($row->except(['id'])->toArray()) as $col)
         <div class="col-md-6 my-2">
-          <input 
-          type="text" 
-          value="" 
-          name="{{$col.'_'.$row['id']}}" 
-          placeholder="{{ucfirst($col)}}" 
-          required
-          class="form-control mt-1">
+        @if (in_array($col, ['province','region','city','place']))
+        <select name="{{$col.'_'.$row['id']}}" class="js-example-basic-single-{{$col.'_'.$row['id']}} w-100 form-control" name="state">
+        </select>
+    
+        <script>
+        
+        $(document).ready(function() {
+          @if ($col == 'province')
+          const url = 'get_province'
+          @elseif ($col == 'city')
+          const url = 'get_city'
+          @elseif ($col == 'region')
+          const url = 'get_region'
+          @elseif ($col == 'place')
+          const url = 'get_place'
+          @endif
+          $('.js-example-basic-single-{{$col.'_'.$row['id']}}').select2({
+            placeholder: '{{$col}}',
+            ajax: {
+              url: url,
+              processResults: function (data) {
+                console.log(data);
+                return {
+                  results: data
+                };
+              }
+            }
+          });
+        });
+        </script>
+        @else
+        <input 
+        type="text" 
+        value="" 
+        name="{{$col.'_'.$row['id']}}" 
+        placeholder="{{ucfirst($col)}}" 
+        required
+        class="form-control mt-1">
+        @endif
         </div>
-      @endforeach        
+      @endforeach    
     </div>
   </div>
 </div>

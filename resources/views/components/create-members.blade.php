@@ -7,6 +7,37 @@
   <div class="card-body">
     <div class="row mb-2">
       @foreach (array_keys($member->except(['id'])->toArray()) as $col)
+        @if (in_array($col, ['province','region','city','place']))
+        <select name="{{$col.'_'.$member['id']}}" class="js-example-basic-single-{{$col.'_'.$member['id']}} w-100 form-control" name="state">
+        </select>
+    
+        <script>
+        
+        $(document).ready(function() {
+          @if ($col == 'province')
+          const url = 'get_province'
+          @elseif ($col == 'city')
+          const url = 'get_city'
+          @elseif ($col == 'region')
+          const url = 'get_region'
+          @elseif ($col == 'place')
+          const url = 'get_place'
+          @endif
+          $('.js-example-basic-single-{{$col.'_'.$member['id']}}').select2({
+            placeholder: '{{$col}}',
+            ajax: {
+              url: url,
+              processResults: function (data) {
+                console.log(data);
+                return {
+                  results: data
+                };
+              }
+            }
+          });
+        });
+        </script>
+        @else
         <div class="col-md-6 my-2">
           <input 
           type="text" 
@@ -16,6 +47,7 @@
           required
           class="form-control mt-1">
         </div>
+        @endif
       @endforeach        
     </div>
   </div>
