@@ -68,7 +68,6 @@
             }
           },
           processResults: function (data) {
-            console.log(data);
             return {
               results: data
             };
@@ -80,7 +79,12 @@
     @else
     <input 
     type="text" 
-    value="{{request('me') === 'leader' ? auth()->user()->{str_replace('leader_', '', $row['name'])}: ''}}" 
+    @if ($row['name'] == 'leader_country')
+    readonly
+    value="INDONESIA"
+    @else
+    value="{{request('me') === 'leader' ? auth()->user()->{str_replace('leader_', '', $row['name'])}: ''}}"
+    @endif 
     name="{{$row['name']}}" 
     placeholder="{{$row['placeholder']}}" 
     required

@@ -45,7 +45,6 @@
             ajax: {
               url: url,
               processResults: function (data) {
-                console.log(data);
                 return {
                   results: data
                 };
@@ -57,7 +56,10 @@
         @else
         <input 
         type="text" 
-        value="" 
+        @if ($col == 'country')
+        value="INDONESIA" 
+        readonly        
+        @endif
         name="{{$col.'_'.$row['id']}}" 
         placeholder="{{ucfirst($col)}}" 
         required

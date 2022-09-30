@@ -7,6 +7,7 @@
   <div class="card-body">
     <div class="row mb-2">
       @foreach (array_keys($member->except(['id'])->toArray()) as $col)
+        <div class="col-md-6 my-2">
         @if (in_array($col, ['province','region','city','place']))
         <select name="{{$col.'_'.$member['id']}}" class="js-example-basic-single-{{$col.'_'.$member['id']}} w-100 form-control" name="state">
         </select>
@@ -28,7 +29,6 @@
             ajax: {
               url: url,
               processResults: function (data) {
-                console.log(data);
                 return {
                   results: data
                 };
@@ -38,16 +38,18 @@
         });
         </script>
         @else
-        <div class="col-md-6 my-2">
           <input 
           type="text" 
-          value="" 
+          @if ($col == 'country')
+          value="INDONESIA"
+          readonly 
+          @endif
           name="{{$col.'_'.$member['id']}}" 
           placeholder="{{ucfirst($col)}}" 
           required
           class="form-control mt-1">
-        </div>
         @endif
+        </div>
       @endforeach        
     </div>
   </div>
