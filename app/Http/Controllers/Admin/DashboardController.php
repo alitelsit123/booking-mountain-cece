@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Book;
+use App\Info;
 
 class DashboardController extends Controller
 {
@@ -14,6 +15,15 @@ class DashboardController extends Controller
     $visitorToday = Book::wherePayment_status('settlement')->whereDate('date', now())->count();
     $books = Book::query()->count();
     $income = Book::wherePayment_status('settlement')->sum('total_price');
-    return view('admin.dashboard', compact('newComers','visitorToday','books','income'));
+    $info = Info::first();
+    return view('admin.dashboard', compact('newComers','visitorToday','books','income','info'));
+  }
+  public function updateInfo() {
+    $info = Info::findOrFail(request('info_id'));
+    $info->price = request('price');
+    $info->book_limit = request('book_limit');
+    $info->save();
+
+    return redirect('/a');
   }
 }

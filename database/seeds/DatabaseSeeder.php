@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 
 use App\User;
-use App\Installment;
+use App\Info;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         'nik' => '123456789',
         'role' => 'admin'
       ]);
-      Installment::query()->delete();
-      Installment::create(['price' => 10000]);
+      Info::query()->delete();
+      Info::create(['price' => 10000,'name' => 'Budheg','book_limit' => 50]);
     }
 }

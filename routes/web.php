@@ -41,6 +41,7 @@ Route::get('/test-mail', function() {
 
 Route::prefix('a')->middleware(['auth','auth.admin'])->group(function() {
   Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index']);
+  Route::post('/info/update', [App\Http\Controllers\Admin\DashboardController::class, 'updateInfo']);
 
   Route::prefix('visitor')->group(function() {
     Route::get('/', [App\Http\Controllers\Admin\VisitorController::class,'index']);
@@ -96,7 +97,7 @@ Route::get('get_province', function() {
   $search = request('term');
   return \App\Province::when($search, function($query) use ($search) {
     $query->where('name','like','%'.$search.'%');
-  })->limit(10)->get()->map(function($item) {
+  })->limit(50)->get()->map(function($item) {
     $item->id = $item->name;
     $item->text = $item->name;
     return $item;
@@ -109,9 +110,12 @@ Route::get('get_province', function() {
 });
 Route::get('get_city', function() {
   $search = request('term');
+  $province = \App\Province::whereName(request('province'))->first();
   return \App\Regency::when($search, function($query) use ($search) {
     $query->where('name','like','%'.$search.'%');
-  })->limit(10)->get()->map(function($item) {
+  })->when($province, function($query) use ($province) {
+    $query->whereProvince_id($province->id);
+  })->limit(50)->get()->map(function($item) {
     $item->id = $item->name;
     $item->text = $item->name;
     return $item;
@@ -124,9 +128,15 @@ Route::get('get_city', function() {
 });
 Route::get('get_region', function() {
   $search = request('term');
+  $province = \App\Province::whereName(request('province'))->first();
+  $city = \App\Regency::whereName(request('city'))->first();
   return \App\District::when($search, function($query) use ($search) {
     $query->where('name','like','%'.$search.'%');
-  })->limit(10)->get()->map(function($item) {
+  })->when($province, function($query) use ($province) {
+    $query->whereIn('regency_id', $province->regencies->pluck('id'));
+  })->when($city, function($query) use ($city) {
+    $query->whereRegency_id($city->id);
+  })->limit(50)->get()->map(function($item) {
     $item->id = $item->name;
     $item->text = $item->name;
     return $item;
@@ -139,9 +149,25 @@ Route::get('get_region', function() {
 });
 Route::get('get_place', function() {
   $search = request('term');
+  $province = \App\Province::whereName(request('province'))->first();
+  $city = \App\Regency::whereName(request('city'))->first();
+  $region = \App\District::whereName(request('region'))->first();
   return \App\Village::when($search, function($query) use ($search) {
     $query->where('name','like','%'.$search.'%');
-  })->limit(10)->get()->map(function($item) {
+  })->when($province, function($query) use ($province) {
+    $cities = $province->regencies;
+    $ids = [];
+    foreach($cities as $city) {
+      foreach($city->districts as $district) {
+        $ids[] = $district->id;
+      }
+    }
+    $query->whereIn('district_id',$ids);
+  })->when($city, function($query) use ($city) {
+    $query->whereIn('district_id',$city->districts->pluck('id'));
+  })->when($region, function($query) use ($region) {
+    $query->whereDistrict_id($region->id);
+  })->limit(50)->get()->map(function($item) {
     $item->id = $item->name;
     $item->text = $item->name;
     return $item;

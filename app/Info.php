@@ -4,9 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Installment extends Model
+class Info extends Model
 {
-  protected $fillable = ['price'];
+  protected $fillable = ['name', 'price', 'book_limit'];
   public $timestamps = false;
-
 }

@@ -57,14 +57,12 @@
         ajax: {
           url: '{{$row['api']}}',
           data: function(params) {
-            @if ($row['name'] === 'leader_city')
-            const province = $('select[name="{{$row['name']}}"]').val()
-            @endif
             return {
               ...params,
-              @if ($row['name'] === 'leader_city')
-              province: province,
-              @endif
+              province: $('select[name="leader_province"]').val(),
+              city: $('select[name="leader_city"]').val(),
+              region: $('select[name="leader_region"]').val(),
+              place: $('select[name="leader_place"]').val(),
             }
           },
           processResults: function (data) {

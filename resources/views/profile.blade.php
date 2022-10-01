@@ -49,7 +49,7 @@
     }
   }
 @endphp
-@if ($showWarning)
+@if ($showWarning && (!auth()->user()->name || !auth()->user()->phone || !auth()->user()->nik || !auth()->user()->age || !auth()->user()->weight || !auth()->user()->country || !auth()->user()->province || !auth()->user()->city || !auth()->user()->region || !auth()->user()->place))
 <div class="alert alert-warning">
   <strong>Wah Profile mu belum lengkap!</strong> Lengkapi profile mu dulu yuk agar mudah isi form Booking.
 </div>
@@ -67,9 +67,9 @@
       {{-- <li class="nav-item">
         <a class="nav-link" data-toggle="tab" href="#book">My Book</a>
       </li> --}}
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a class="nav-link" data-toggle="tab" href="#friend">My Friends</a>
-      </li>
+      </li> --}}
     </ul>
   </div>
 
@@ -130,7 +130,7 @@
                   @endphp
                   @foreach ($params as $row)
                   @php
-                    $value = (auth()->user()->{$row['name']})
+                    $value = \App\User::find(auth()->user()->id)->{$row['name']};
                   @endphp
                   <div class="col-md-6 my-2">
                     <input 
@@ -207,7 +207,7 @@
                   <strong>
                     <div class="mb-2">Tanggal Booking: {{now()}}</div>
                   </strong>
-                  <div class="mb-2">Status: <span class="badge badge-success">{{$history->payment_status}}</span></div>                  
+                  <div class="mb-2">Status Pembayaran: <span class="badge {{ $history->payment_status === 'settlement' ? 'badge-success':'badge-warning' }}">{{$history->payment_status}}</span></div>                  
                 </div>
               </div>
             </div>

@@ -15,19 +15,33 @@
         <script>
         
         $(document).ready(function() {
+          var placeholder = ''
           @if ($col == 'province')
           const url = 'get_province'
+          placeholder = 'Masukkan Provinsi';
           @elseif ($col == 'city')
           const url = 'get_city'
+          placeholder = 'Masukkan Kota';
           @elseif ($col == 'region')
           const url = 'get_region'
+          placeholder = 'Masukkan Kecamatan';
           @elseif ($col == 'place')
           const url = 'get_place'
+          placeholder = 'Masukkan Kelurahan';
           @endif
           $('.js-example-basic-single-{{$col.'_'.$member['id']}}').select2({
-            placeholder: '{{$col}}',
+            placeholder: placeholder,
             ajax: {
               url: url,
+              data: function(params) {
+                return {
+                  ...params,
+                  province: $('select[name="{{'province'.'_'.$member['id']}}"]').val(),
+                  city: $('select[name="{{'city'.'_'.$member['id']}}"]').val(),
+                  region: $('select[name="{{'region'.'_'.$member['id']}}"]').val(),
+                  place: $('select[name="{{'place'.'_'.$member['id']}}"]').val(),
+                }
+              },
               processResults: function (data) {
                 return {
                   results: data
@@ -38,6 +52,26 @@
         });
         </script>
         @else
+          @php
+          if($col == 'name') {
+            $placeholder = 'Masukkan Nama';
+          }
+          if($col == 'phone') {
+            $placeholder = 'Masukkan Nomor Hp';
+          }
+          if($col == 'email') {
+            $placeholder = 'Masukkan Email';
+          }
+          if($col == 'nik') {
+            $placeholder = 'Masukkan Nik';
+          }
+          if($col == 'age') {
+            $placeholder = 'Masukkan Usia';
+          }
+          if($col == 'weight') {
+            $placeholder = 'Masukkan Berat Badan';
+          }
+        @endphp
           <input 
           type="text" 
           @if ($col == 'country')
@@ -45,7 +79,7 @@
           readonly 
           @endif
           name="{{$col.'_'.$member['id']}}" 
-          placeholder="{{ucfirst($col)}}" 
+          placeholder="{{$placeholder}}" 
           required
           class="form-control mt-1">
         @endif

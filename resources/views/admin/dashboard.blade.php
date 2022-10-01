@@ -87,6 +87,97 @@
   </div>
   <!-- /.row -->
   
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          Informasi
+        </div>
+        <div class="card-body">
+          <div class="row mb-2">
+            <div class="col-md-6">
+              <div>Nama Gunung</div>
+            </div>
+            <div class="col-md-6">
+              <div>Budheg</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    @if (request('mode') === 'edit_booking')
+    <div class="col-md-6">
+      <form action="{{url('/a/info/update')}}" method="post">
+        @csrf
+        <input type="hidden" name="info_id" value="{{$info->id}}" />
+        <div class="card">
+          <div class="card-header">
+            Pengaturan Booking 
+            <div class="card-tools">
+              <a href="{{url('/a')}}" class="btn btn-sm btn-danger">
+                Batal
+              </a>
+              <button type="submit" class="btn btn-sm btn-success">
+                simpan
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="row mb-2">
+              <div class="col-md-6">
+                <div>Harga Per Orang</div>
+              </div>
+              <div class="col-md-6">
+                <input type="number" name="price" value="{{$info->price}}" class="form-control" id="" />
+              </div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-md-6">
+                <div>Limit Book Dihari yang sama</div>
+              </div>
+              <div class="col-md-6">
+                <input type="number" name="book_limit" value="{{$info->book_limit}}" class="form-control" id="" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    @else
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          Pengaturan Booking 
+          <div class="card-tools">
+            <a href="{{url('/a?mode=edit_booking')}}" class="btn btn-sm btn-default">
+              Edit
+            </a>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row mb-2">
+            <div class="col-md-6">
+              <div>Harga Per Orang</div>
+            </div>
+            <div class="col-md-6">
+              <div>Rp. {{number_format($info->price)}}</div>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-md-6">
+              <div>Booking Penuh Dihari yang sama</div>
+            </div>
+            <div class="col-md-6">
+              <div>{{$info->book_limit}} orang</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    @endif
+
+  </div>
   <!-- /.row (main row) -->
 </div><!-- /.container-fluid -->
 

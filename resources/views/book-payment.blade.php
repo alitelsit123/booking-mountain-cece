@@ -94,14 +94,24 @@
         <div class="card">
           <div class="card-header">Informasi</div>
           <div class="card-body">
+            @if ($book->payment_status != 'settlement')
+            <div class="alert alert-warning">
+              <strong>Perhatian.</strong> Mohon simpan Kode Booking untuk melihat status Booking
+            </div>
+            @endif
             <ul class="list-group">
+              <li class="list-group-item"><strong>Kode Booking {{str_replace('INV.', '', $book->invoice_code)}}</strong></li>
               <li class="list-group-item">Tanggal Pendakian: {{$book->date}}</li>
               <li class="list-group-item">Jumlah Orang: {{$members->count()+1}}</li>
               <li class="list-group-item">Total harga: Rp. {{number_format($book->total_price)}}</li>
             </ul>
           </div>
           <div class="card-footer">
+            @if ($book->payment_status === 'settlement')
+            <a class="btn btn-success mx-auto btn-block" href="{{url('/invoice'.'/'.$book->id)}}">Lihat Invoice</a>
+            @else
             <button class="btn btn-primary mx-auto btn-block" id="pay-button">Bayar Sekarang</button>
+            @endif
           </div>
         </div>
       </div>
@@ -112,14 +122,14 @@
 
 <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}"></script>
 
-@if ($book->snap_token)
+@if ($book->snap_token && $book->payment_status != 'settlement')
 <script>
   const payButton = document.querySelector('#pay-button');
   payButton.addEventListener('click', function(e) {
       e.preventDefault();
       snap.pay('{{ $book->snap_token }}', {
           onSuccess: function(result) {
-            $('.alert-pay').show()
+            window.location.reload();
           },
           onPending: function(result) {
             $('.alert-pay').show()

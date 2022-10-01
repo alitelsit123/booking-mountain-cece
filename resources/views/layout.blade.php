@@ -59,8 +59,15 @@
       }
 
       .fade{
+        visibility: hidden;
         opacity: 0;
         top: 5rem;
+      }
+
+      .gj-picker {
+        top:50%;
+        left:50%!important;
+        transform: translateY(-50%);
       }
     </style>
 
@@ -95,7 +102,7 @@
             <div id="sticky-header" class="main-header-area">
                 <div class="container-fluid p-0">
                     <div class="row align-items-center no-gutters">
-                        <div class="col-xl-5 col-lg-5">
+                        <div class="col-md-6">
                             <div class="main-menu  d-none d-lg-block">
                                 <nav>
                                     <ul id="navigation" style="text-align: left;padding-left: 2rem">
@@ -107,24 +114,16 @@
                                         @endif" href="{{url('/gallery')}}">Galeri</a></li>
                                         <li><a class="@if (request()->segment(1) === 'tutorial')
                                           active
-                                        @endif" href="{{url('/help')}}">Bantuan</a></li>
+                                        @endif" href="{{url('/help')}}">Tutorial Booking</a></li>
+                                        <li><a href="#" onclick="$('.search-input').addClass('d-flex');$('.search-input').removeClass('d-none')">Cari Booking</a></li>
                                     </ul>
                                 </nav>
                             </div>
                         </div>
-                        <div class="col-xl-1 col-lg-1">
-                            <div class="logo-img">
-                                <a href="{{url('/')}}">
-                                    {{-- <img src="logo.png" alt="" width="200px"> --}}
-                                    {{-- <div>lajdf</div> --}}
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-lg-6 d-none d-lg-block">
+                        <div class="col-md-6 d-none d-lg-block">
                             <div class="book_room">
                                 <div class="book_btn d-none d-lg-block" style="position: relative;">
                                     <a class="popup-with-form" href="#test-form">Booking Sekarang!</a>
-                                    
                                     @guest
                                     <a class="popup-with-form" onclick="document.location.href='{{url('login')}}';" style="cursor:pointer;background-color:transparent;font-weight:bold">
                                       Masuk
@@ -149,6 +148,21 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-12 px-4 pb-2 d-none search-input">
+                          <input class="form-control mr-sm-2 s-input" type="search" placeholder="Search" aria-label="Search">
+                          <button class="btn btn-default my-2 my-sm-0" type="button" onclick="$('.search-input').addClass('d-none');$('.search-input').removeClass('d-flex');"><span class="fa fa-times"></span></button>
+                        </div>
+                        <script>
+                          $('.s-input').keyup(function(e) {
+                            if(e.key === 'Enter') {
+                              const value = $('.s-input').val().replace(/\s/g, '')
+                              if(value && value.length > 0) {
+                                const url = '{{url('/book/payment')}}';
+                                document.location.href = url+'?book_id=INV.'+value
+                              }
+                            }
+                          })
+                        </script>
                         <div class="col-12">
                             <div class="mobile_menu d-block d-lg-none"></div>
                         </div>
@@ -171,8 +185,8 @@
                             <h3 class="footer_title">
                                 Alamat
                             </h3>
-                            <p class="footer_text"> Tulungagung <br>
-                                Jawa Tengah</p>
+                            <p class="footer_text">Desa Tanggung, Kecamatan Campurdarat, Kabupaten Tulungagung <br>
+                                Jawa Tengah, Indonesia</p>
                             <a href="#" class="line-button">Dapatkan Map</a>
                         </div>
                     </div>
@@ -219,7 +233,7 @@
                     <div class="col-xl-8 col-md-7 col-lg-9">
                         <p class="copy_right">
                             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved</a>
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     </div>
                     <div class="col-xl-4 col-md-5 col-lg-3">
@@ -253,15 +267,21 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <!-- form itself end-->
     <form id="test-form" method="POST" action="{{url('book')}}" class="white-popup-block mfp-hide">
       @csrf
-      <div class="popup_box py-4">
+      <div class="popup_box py-4 position-relative">
           <div class="popup_inner">
               <h3 class="text-left d-flex align-items-center justify-content-between mb-4">
                 <div>Cek Tanggal Booking</div>
                 <span class="fa fa-times" style="cursor: pointer;" onclick="$.magnificPopup.close()"></span>
               </h3>
-              <div class="alert alert-success">
+              @if (session()->has('book_error'))
+              <div class="alert alert-danger text-left">
+                <strong>Maaf!</strong> {{session('book_error')}}
+              </div>
+              @else
+              <div class="alert alert-success text-left">
                 <strong>Ingin Cepat isi form ?</strong> <a href="{{url('/login')}}">Login sekarang</a>
               </div>
+              @endif
               @php
                 // $_ci = session('date');
                 // if($_ci) {
@@ -319,13 +339,20 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
     <script>
       $('.open-submenu').click(function() {
-        console.log($('.right-submenu').hasClass('fade'))
         if($('.right-submenu').hasClass('fade')) {
           $('.right-submenu').removeClass('fade')
         } else {
           $('.right-submenu').addClass('fade')
         }
       });
+      window.onscroll = function() {
+        $('.gj-picker').css('top', window.pageYOffset+'px!important');
+      }
+      @if (session()->has('book_error'))
+      $(document).ready(function() {
+        $('.popup-with-form').click()
+      })
+      @endif
     </script>
 
 </body>

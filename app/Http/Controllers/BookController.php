@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Mail;
 
 use App\Book;
 use App\BookMember;
-use App\Installment;
+use App\Info;
 use App\Services\Midtrans\CreateSnapTokenService;
 
 class BookController extends Controller
@@ -22,10 +22,15 @@ class BookController extends Controller
     return view('book', compact('members'));
   }
   public function doBook() {
+    $book_limit = Info::first()->book_limit;
     $incomingDate = explode('/',request('date'));
     $swapDate = $incomingDate[2].'-'.$incomingDate[0].'-'.$incomingDate[1];
 
-    // $limit = Book::withCount('members')->where('date',$swapDate)->get();
+    $limit = Book::withCount('members')->whereDate('date',$swapDate)->get()->sum('members_count');
+    if($limit >= $book_limit) {
+      return back()->with(['book_error' => 'Kuota pengunjung di tanggal '.$swapDate.' sudah penuh.']);
+    }
+    
     session()->put('book', null);
     session()->put('date', $swapDate);
     return redirect('book');
@@ -52,7 +57,7 @@ class BookController extends Controller
       }
     }
     
-    $peoplePrice = Installment::first()->price * sizeof($members) + Installment::first()->price;
+    $peoplePrice = Info::first()->price * sizeof($members) + Info::first()->price;
     if(session('book')) {
       $book = Book::find(session('book')['id']);
       $book->date = session('date');
@@ -110,7 +115,13 @@ class BookController extends Controller
     return redirect('book/payment');
   }
   public function payment() {
-    $book = Book::find(session('book')['id']);
+    if(request('book_id')) {
+      $book = Book::whereInvoice_code(request('book_id'))->firstOrFail();
+    } else if(!session('book')) {
+      abort(404);
+    } else {
+      $book = Book::findOrFail(session('book')['id']);
+    }
     $leader = $book->members()->whereRole('leader')->first();
     $members = $book->members()->whereRole('member')->get();
 
@@ -125,9 +136,9 @@ class BookController extends Controller
       $book->payment_success_at = now();
       $book->save();
     }
-    if($book->payment_status === 'settlement') {
-      return redirect('book/'.$book->id.'/finish');
-    }
+    // if($book->payment_status === 'settlement') {
+    //   return redirect('book/'.$book->id.'/finish');
+    // }
     return view('book-payment',compact('book','members','leader'));
   }
   public function finish($book_id) {
