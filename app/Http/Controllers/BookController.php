@@ -58,6 +58,7 @@ class BookController extends Controller
     }
     
     $peoplePrice = Info::first()->price * sizeof($members) + Info::first()->price;
+
     if(session('book')) {
       $book = Book::find(session('book')['id']);
       $book->date = session('date');
