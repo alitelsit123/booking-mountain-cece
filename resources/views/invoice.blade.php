@@ -24,7 +24,7 @@
     @endif
     <div class="container" id="downloadable">
         <div class="row">
-            <div class="col-xl-6 col-lg-6 col-sm-12 py-4 mx-auto" id="downloadable-content" style="border: 1px solid rgba(0, 0, 0, 0.144)">
+            <div class="col-xl-6 col-lg-6 col-sm-12 py-4 @if(!request()->has('from')) mx-auto @endif" id="downloadable-content" style="@if(request()->has('from')) transform:translateX(18%); @endif border: 1px solid rgba(0, 0, 0, 0.144)">
                 <h3>{{$book->invoice_code}}</h3>
                 <p> Hallo, {{$leader->name}}</p>
                 <p>Pembayaran untuk Booking Gunung Budheg berhasil.</p>
@@ -80,7 +80,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>
     <script src="{{asset('js/html2canvas.min.js')}}"></script>
 
-    @if (request('from') === 'email')
+    @if (request()->has('from'))
     <script>
       var doc = new jsPDF();
       var specialElementHandlers = {
@@ -90,19 +90,20 @@
       };
 
       $(document).ready(function() {
-        $('#downloadable-content').removeClass('mx-auto')
-        $('#downloadable-content').css('transform', 'translateX(30%)')
+        // $('#downloadable-content').removeClass('mx-auto')
+        // $('#downloadable-content').css('transform', 'translateX(30%)')
         html2canvas(document.getElementById('downloadable')).then(function (canvas) {
             var img = canvas.toDataURL("image/jpeg",1.0);
             var doc = new jsPDF();
             doc.addImage(img, 'JPEG', 10, 10);
             doc.save('{{$book->invoice_code}}.pdf');        
+        }).then(() => {
+          window.close();
         });
-        window.close();
-        setTimeout(() => {
-          $('#downloadable-content').addClass('mx-auto')
-          $('#downloadable-content').css('transform', '')
-        }, 500)
+        // setTimeout(() => {
+        //   $('#downloadable-content').addClass('mx-auto')
+        //   $('#downloadable-content').css('transform', '')
+        // }, 500)
       })
     </script>
     @else
@@ -115,18 +116,22 @@
       };
 
       $('#btn-print').click(function() {
-        $('#downloadable-content').removeClass('mx-auto')
-        $('#downloadable-content').css('transform', 'translateX(30%)')
-        html2canvas(document.getElementById('downloadable')).then(function (canvas) {
-            var img = canvas.toDataURL("image/jpeg", 1.0);
-            var doc = new jsPDF();
-            doc.addImage(img, 'JPEG', 10, 10);
-            doc.save('{{$book->invoice_code}}.pdf');        
-        });
-        setTimeout(() => {
-          $('#downloadable-content').addClass('mx-auto')
-          $('#downloadable-content').css('transform', '')
-        }, 500)
+        // $('#downloadable-content').removeClass('mx-auto')
+        // $('#downloadable-content').css('transform', 'translateX(30%)')
+        // html2canvas(document.getElementById('downloadable')).then(function (canvas) {
+        //     var img = canvas.toDataURL("image/jpeg", 1.0);
+        //     var doc = new jsPDF();
+        //     doc.addImage(img, 'JPEG', 10, 10);
+        //     doc.save('{{$book->invoice_code}}.pdf');        
+        // });
+        // setTimeout(() => {
+        //   $('#downloadable-content').addClass('mx-auto')
+        //   $('#downloadable-content').css('transform', '')
+        // }, 500)
+        const _w = window.open('{{url('/invoice'.'/'.$book->id)}}?from=button')
+        // setTimeout(() => {
+        //   _w.close()
+        // }, 10000)
       })
     </script>
     @endif
