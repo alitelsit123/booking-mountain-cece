@@ -56,15 +56,7 @@
                 </table>
                 <p>Silahkan mencetak invoice berikut untuk dibawa saat pendakian sebagai bukti pembayaran.</p>
                 <br />
-                <a href="#" id="download-invoice">Download Invoice.</a>
-                <script>
-                  $('#download-invoice').click(function() {
-                    const _w = window.open('{{url('/invoice'.'/'.$book->id)}}?from=email');
-                    setTimeout(() => {
-                      _w.close()
-                    }, 1000)
-                  })
-                </script>
+                <a href="{{url('/invoice'.'/'.$book->id)}}?from=email" id="download-invoice">Download Invoice.</a>
                 <br/>
                 <br/>
                 <br/>
