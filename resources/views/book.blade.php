@@ -86,6 +86,8 @@ $(document).ready(function() {
         rightIcon: '<span class="fa fa-caret-down"></span>'
     }
   });
+
+
 })
 
 </script>

@@ -110,7 +110,8 @@
             @if ($book->payment_status === 'settlement')
             <a class="btn btn-success mx-auto btn-block" href="{{url('/invoice'.'/'.$book->id)}}">Lihat Invoice</a>
             @else
-            <button class="btn btn-primary mx-auto btn-block" id="pay-button">Bayar Sekarang</button>
+            <a class="btn btn-success mx-auto btn-block btn-show-invoice" style="display: none;" href="{{url('/invoice'.'/'.$book->id)}}">Lihat Invoice</a>
+            <button class="btn btn-primary mx-auto btn-block btn-show-pay" style="display: block;" id="pay-button">Bayar Sekarang</button>
             @endif
           </div>
         </div>
@@ -143,6 +144,24 @@
 @endif
 
 <script>
+@if (request('book_id') || session('book'))
+const pool = setInterval(pooling, 5000);
+function pooling() {
+  $.post('{{url('book/status/pool')}}', {
+    _token: '{{csrf_token()}}',
+    book_id: '{{request('book_id') ?? session('book')['invoice_code']}}'
+  }, function(data) {
+    if(data.message == 'settlement') {
+      $('.btn-show-pay').hide()
+      $('.btn-show-invoice').show()
+    }
+  })
+}
+window.onbeforeunload = function(){
+  clearInterval(pool)
+};
+@endif
+
 $(document).ready(function() {
   $('#filter-datepicker').datepicker({
       iconsLibrary: 'fontawesome',

@@ -175,3 +175,5 @@ Route::get('get_place', function() {
     ];
   })->values();
 });
+
+Route::post('/book/status/pool', [App\Http\Controllers\BookController::class, 'poolPaymentStatus']);

@@ -155,4 +155,31 @@ class BookController extends Controller
 
     return view('finish', compact('book'));
   }
+  public function poolPaymentStatus() {
+    $book = Book::where('invoice_code',request('book_id'))->first();
+    if($book) {
+      $checkStatusMidtrans = Http::withHeaders([
+        'Accept' => 'application/json',
+        'Content-Type' => 'application/json',
+        'Authorization' => 'Basic '.base64_encode(config('midtrans.server_key'))
+      ])->get('https://api.sandbox.midtrans.com/v2/'.request('book_id').'/status');
+      $transaction = $checkStatusMidtrans->json();
+      if(isset($transaction['transaction_status'])) {
+        if($transaction['transaction_status'] == 'settlement') {
+          $book->payment_status = $transaction['transaction_status'];
+          $book->payment_success_at = now();
+          $book->save();
+        }
+        return response()->json([
+          'message' => $transaction['transaction_status'],
+          'book' => $book,
+          'existing_payload' => request()->all()
+        ]);
+      }
+    }
+    return response()->json([
+      'message' => 'Book not found',
+      'existing_payload' => request()->all()
+    ]);
+  }
 }
