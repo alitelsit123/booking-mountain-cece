@@ -11,7 +11,14 @@
       $leader = $book->members()->whereRole('leader')->first();
       $members = $book->members()->whereRole('member')->get();
     @endphp
-    <div class="container">
+    <div class="container" style="margin-bottom: 18px;margin-top: 18px;">
+      <div class="row">
+        <div class="col-md-6 mx-auto px-0">
+          <button id="btn-print" style="width: 100%;background-color:rgb(31, 0, 207);color:white;padding: 0.5rem;border: 1px solid rgba(0, 0, 0, 0.144)">Download Invoice</button>
+        </div>
+      </div>
+    </div>
+    <div class="container" id="downloadable">
         <div class="row">
             <div class="col-xl-6 col-lg-6 col-sm-12 m-auto py-4" style="border: 1px solid rgba(0, 0, 0, 0.144)">
                 <h3>{{$book->invoice_code}}</h3>
@@ -47,7 +54,8 @@
                       <tr>
                         <th scope="row">{{$row->name}}</th>
                         <td>{{$row->phone}}</td>
-                        <td>{{$row->age}} Th</td>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <td>{{$row->age}} Th</td>
                         <td>{{$row->weight}} Kg</td>
                         <td>{{$row->role}}</td>
                       </tr>
@@ -63,8 +71,44 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <div id="editor"></div>
+    <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>
+    @if (request('from') === 'email')
+    <script>
+      var doc = new jsPDF();
+      var specialElementHandlers = {
+          '#editor': function (element, renderer) {
+              return true;
+          }
+      };
+
+      $(document).ready(function() {
+        doc.fromHTML($('#downloadable').html(), 15, 15, {
+            'width': 170,
+                'elementHandlers': specialElementHandlers
+        });
+        doc.save('{{$book->invoice_code}}.pdf');
+        window.close();
+      })
+    </script>
+    @else
+    <script>
+      var doc = new jsPDF();
+      var specialElementHandlers = {
+          '#editor': function (element, renderer) {
+              return true;
+          }
+      };
+
+      $('#btn-print').click(function() {
+        doc.fromHTML($('#downloadable').html(), 15, 15, {
+            'width': 170,
+                'elementHandlers': specialElementHandlers
+        });
+        doc.save('{{$book->invoice_code}}.pdf');
+      })
+    </script>
+    @endif
   </body>
 </html>

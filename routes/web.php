@@ -30,9 +30,9 @@ Route::middleware(['reload.book'])->group(function() {
   Route::get('/book', [App\Http\Controllers\BookController::class, 'index']);
   Route::post('/book', [App\Http\Controllers\BookController::class, 'doBook']);
   Route::post('/book/payment', [App\Http\Controllers\BookController::class, 'toPayment']);
-  Route::get('/book/{book_id}/finish', [App\Http\Controllers\BookController::class, 'finish']);
 });
 
+Route::get('/book/{book_id}/finish', [App\Http\Controllers\BookController::class, 'finish']);
 Route::get('/book/payment', [App\Http\Controllers\BookController::class, 'payment']);
 
 

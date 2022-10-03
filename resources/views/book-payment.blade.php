@@ -154,6 +154,7 @@ function pooling() {
     if(data.message == 'settlement') {
       $('.btn-show-pay').hide()
       $('.btn-show-invoice').show()
+      document.location.href="{{url('/book/'.$book->id.'/finish')}}"
     }
   })
 }
