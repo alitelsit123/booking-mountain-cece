@@ -15,11 +15,14 @@
     flex-grow: 1;
     margin-right: .5rem;
   }
+  .breadcam_bg_book{
+    background-image:url({{asset('img/banner/finish.png')}})
+  }
 </style>
 
 
 <!-- bradcam_area_start -->
-<div class="bradcam_area breadcam_bg_2">
+<div class="bradcam_area breadcam_bg_book">
   <h3>Finish</h3>
 </div>
 <!-- bradcam_area_end -->

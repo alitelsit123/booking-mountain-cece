@@ -15,13 +15,16 @@
     flex-grow: 1;
     margin-right: .5rem;
   }
+  .breadcam_bg_book{
+    background-image:url({{asset('img/banner/book.png')}})
+  }
 </style>
 
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <!-- bradcam_area_start -->
-<div class="bradcam_area breadcam_bg_2">
+<div class="bradcam_area breadcam_bg_book">
   <h3>Booking</h3>
 </div>
 <!-- bradcam_area_end -->
