@@ -54,8 +54,7 @@
     <img src="{{asset('img/paymentstep2.png')}}" />
     <p>11. Pilih metode pembayaran yang kamu inginkan. contoh indomaret akan muncul code bayar nya.</p>
     <img src="{{asset('img/paymentstep3.png')}}" />
-    <p>12. Refresh halaman jika sudah membayar agar mendapat invoice.</p>
-    <img src="{{asset('img/paymentstep4.png')}}" width="100%" />
+    <p>12. Setelah membayar tunggu sebentar untuk di proses.</p>
     <p>13. Lalu kamu akan diarahkan ke halaman berhasil bayar. silahkan cek emailmu.</p>
     <img src="{{asset('img/paymentstep6.png')}}" width="100%" />
     <p>14. Cek emailmu invoice akan dikirimkan ke email ketua.</p>
