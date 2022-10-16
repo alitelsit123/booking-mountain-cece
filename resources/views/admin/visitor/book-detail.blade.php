@@ -44,16 +44,16 @@
           </div>
           @php
             $_leader = [
-              'Nama' => $leader->name,
-              'Nomor Hp' => $leader->phone,
-              'Email' => $leader->email,
-              'NIK' => $leader->nik,
-              'Usia' => $leader->age,
-              'Negara' => $leader->country,
-              'Provinsi' => $leader->province,
-              'Kota' => $leader->city,
-              'Kecamatan' => $leader->region,
-              'Kelurahan' => $leader->place,
+              'Nama' => $leader ? $leader->name: '',
+              'Nomor Hp' => $leader ? $leader->phone: '',
+              'Email' => $leader ? $leader->email: '',
+              'NIK' => $leader ? $leader->nik: '',
+              'Usia' => $leader ? $leader->age: '',
+              'Negara' => $leader ? $leader->country: '',
+              'Provinsi' => $leader ? $leader->province: '',
+              'Kota' => $leader ? $leader->city: '',
+              'Kecamatan' => $leader ? $leader->region: '',
+              'Kelurahan' => $leader ? $leader->place: '',
             ];
           @endphp
           @foreach (array_keys($_leader) as $_l)

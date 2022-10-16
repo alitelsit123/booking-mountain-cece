@@ -145,22 +145,26 @@
 
 <script>
 @if (request('book_id') || session('book'))
-const pool = setInterval(pooling, 5000);
-function pooling() {
-  $.post('{{url('book/status/pool')}}', {
-    _token: '{{csrf_token()}}',
-    book_id: '{{request('book_id') ?? session('book')['invoice_code']}}'
-  }, function(data) {
-    if(data.message == 'settlement') {
-      $('.btn-show-pay').hide()
-      $('.btn-show-invoice').show()
-      document.location.href="{{url('/book/'.$book->id.'/finish')}}"
-    }
-  })
-}
-window.onbeforeunload = function(){
-  clearInterval(pool)
-};
+ @if ($book->payment_status == 'pending')
+ const pool = setInterval(pooling, 5000);
+  function pooling() {
+    $.post('{{url('book/status/pool')}}', {
+      _token: '{{csrf_token()}}',
+      book_id: '{{request('book_id') ?? session('book')['invoice_code']}}'
+    }, function(data) {
+      @if ($book->payment_status == 'pending')
+      if(data.message == 'settlement') {
+        $('.btn-show-pay').hide()
+        $('.btn-show-invoice').show()
+        document.location.href="{{url('/book/'.$book->id.'/finish')}}"
+      }
+      @endif
+    })
+  }
+  window.onbeforeunload = function(){
+    clearInterval(pool)
+  };
+ @endif
 @endif
 
 $(document).ready(function() {

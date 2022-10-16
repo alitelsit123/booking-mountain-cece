@@ -137,9 +137,6 @@ class BookController extends Controller
       $book->payment_success_at = now();
       $book->save();
     }
-    // if($book->payment_status === 'settlement') {
-    //   return redirect('book/'.$book->id.'/finish');
-    // }
     return view('book-payment',compact('book','members','leader'));
   }
   public function finish($book_id) {

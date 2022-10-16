@@ -47,7 +47,7 @@
   @foreach ($leader_fillables as $i => $row)
   <div class="col-md-6 my-2">
     @if (isset($row['select2'])) 
-    <select name="{{$row['name']}}" class="js-example-basic-single-{{$row['name']}} w-100 form-control" name="state">
+    <select name="{{$row['name']}}" class="js-example-basic-single-{{$row['name']}} w-100 form-control" name="state" required>
     </select>
 
     <script>
