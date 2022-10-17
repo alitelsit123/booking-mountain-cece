@@ -11,7 +11,7 @@ use App\Info;
 class DashboardController extends Controller
 {
   public function index() {
-    $newComers = Book::whereDate('date', '>', now())->wherePayment_status('pending')->count();
+    $newComers = Book::whereDate('date', '>', now())->wherePayment_status('settlement')->count();
     $visitorToday = Book::wherePayment_status('settlement')->whereDate('date', now())->count();
     $books = Book::query()->count();
     $income = Book::wherePayment_status('settlement')->sum('total_price');
