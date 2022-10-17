@@ -20,7 +20,15 @@
 
 <!-- bradcam_area_start -->
 <div class="bradcam_area breadcam_bg_2">
-  <h3>Pembayaran</h3>
+  @if (request('book_id'))
+    @if ($book->payment_status == 'settlement') 
+    <h3>Status Booking</h3>
+    @else
+    <h3>Pembayaran</h3>
+    @endif
+  @else
+    <h3>Pembayaran</h3>
+  @endif
 </div>
 <!-- bradcam_area_end -->
 
@@ -101,6 +109,11 @@
             @endif
             <ul class="list-group">
               <li class="list-group-item"><strong>Kode Booking {{str_replace('INV.', '', $book->invoice_code)}}</strong></li>
+              @if (request('book_id'))
+                @if ($book->payment_status == 'settlement') 
+                <li class="list-group-item">Status Pembayaran: <strong>Lunas</strong></li>
+                @endif
+              @endif
               <li class="list-group-item">Tanggal Pendakian: {{$book->date}}</li>
               <li class="list-group-item">Jumlah Orang: {{$members->count()+1}}</li>
               <li class="list-group-item">Total harga: Rp. {{number_format($book->total_price)}}</li>
