@@ -18,10 +18,14 @@ class GalleryController extends Controller
     $type = request('type');
 
     if($type === 'image') {
-      $url = request()->file('image')->store('public/gallery');      
-      $url = \str_replace('public/', '', $url);
-      Gallery::create(['type' => 'image', 'url' => $url]);
-      return back()->with(['message' => 'Gambar berhasil diupload.']);
+      if(request()->hasFile('image') && request()->file('image')->isValid()) {
+        $url = request()->file('image')->store('public/gallery');      
+        $url = \str_replace('public/', '', $url);
+        Gallery::create(['type' => 'image', 'url' => $url]);
+        return back()->with(['message' => 'Gambar berhasil diupload.']);
+      }
+
+      return back()->with(['message' => 'Gambar gagal diupload.', 'type' => 'error']);
     }
     if($type == 'video') {
       Gallery::create(['type' => 'video', 'url' => request('url')]);

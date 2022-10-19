@@ -22,9 +22,15 @@
 
 @section('content')
 @if (session()->has('message'))
-<div class="alert alert-success">
-  {{session('message')}}
-</div>
+  @if (session('type') == 'error') 
+  <div class="alert alert-danger">
+    {{session('message')}}
+  </div>
+  @else
+  <div class="alert alert-success">
+    {{session('message')}}
+  </div>
+  @endif
 @endif
 <div class="container-fluid">
   <div class="card">
@@ -69,7 +75,7 @@
           </div>
           <div class="modal-body">
             <input type="text" name="type" value="image" class="form-control d-none" />
-            <input type="file" name="image" class="form-control" />
+            <input type="file" name="image" accept="image/*" required class="form-control" />
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary">Simpan</button>
