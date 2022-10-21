@@ -6,7 +6,7 @@
   <div class="row justify-content-center">
     <div class="col-md-6 text-center">
       <h6 style="color: white;margin-bottom: 1.2rem">
-      <h2 class="heading-section mb-5">Masuk Gunung Budek</h2>
+      <h2 class="heading-section mb-5">Masuk Gunung Budheg</h2>
     </div>
   </div>
   <div class="row justify-content-center">

@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-  	<title>{{request()->segment(1) === 'login' ? 'Masuk Gunung Budek': 'Daftar Akun'}}</title>
+  	<title>{{request()->segment(1) === 'login' ? 'Masuk Gunung Budheg': 'Daftar Akun'}}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 

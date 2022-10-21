@@ -53,10 +53,10 @@
           <div class="col-xl-7 col-lg-7">
               <div class="about_thumb d-flex">
                   <div class="img_1">
-                      <img src="img/potrait1.jpg" alt="">
+                      <img src="img/tentang1.jpg" alt="">
                   </div>
                   <div class="img_2">
-                      <img src="img/potrait2.jpg" alt="">
+                      <img src="img/tentang2.jpg" alt="">
                   </div>
               </div>
           </div>
