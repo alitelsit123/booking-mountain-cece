@@ -50,6 +50,45 @@ class AuthController extends Controller
 
     return redirect('login')->with(['email' => $r->email,'password' => $r->password]);
   }
+
+  public function redirectToGoogle() {
+    return \Laravel\Socialite\Facades\Socialite::driver('google')->redirect();
+  }
+  public function handleGoogleCallback() {
+    try {     
+        $user = \Laravel\Socialite\Facades\Socialite::driver('google')->user();
+  
+        $finduser = User::where('email', $user->email)->first();
+  
+        if($finduser){
+            auth()->login($finduser);
+            if($finduser->role === 'admin') {
+              return redirect()->intended('a');
+            }
+            return redirect()->intended('/');
+        } else {
+            $nik = mt_rand(100000000000000, 999999999999999);
+            $_u = User::whereNik($nik)->first();
+            while ($_u) {
+              $nik = mt_rand(100000000000000, 999999999999999);
+              $_u = User::whereNik($nik)->first();
+            }
+            $newUser = User::create([
+                'name' => $user->name,
+                'nik' => $nik,
+                'email' => $user->email,
+                'password' => \bcrypt('12345678')
+            ]);
+
+            auth()->login($newUser);
+
+            return redirect()->intended('/');
+        }
+
+    } catch (\Exception $e) {
+        dd($e->getMessage());
+    }
+  }
   
   public function logout() {
     auth()->logout();
