@@ -115,14 +115,14 @@
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Edit Video Url</h5>
+                      <h5 class="modal-title" id="exampleModalLabel">Edit Video Embed</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
                     <div class="modal-body">
                       <input type="text" name="type" value="video" class="form-control d-none" />
-                      <input type="text" name="url" value="{{$row->url}}" class="form-control" placeholder="Url Youtube / Url Video" />
+                      <input type="text" name="url" value="{{$row->url}}" class="form-control" placeholder="Embed Video" />
                     </div>
                     <div class="modal-footer">
                       <button type="submit" class="btn btn-primary">Simpan</button>

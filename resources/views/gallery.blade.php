@@ -88,9 +88,7 @@
       <div class="row">
         @foreach ($videos as $row)
         <div class="col-md-6">
-          <iframe width="420" height="315"
-          src="{{$row->url}}">
-          </iframe> 
+          {!!$row->url!!} 
         </div>
         @endforeach
       </div>

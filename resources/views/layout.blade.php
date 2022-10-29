@@ -194,7 +194,7 @@
                                 Alamat
                             </h3>
                             <p class="footer_text">Desa Tanggung, Kecamatan Campurdarat, Kabupaten Tulungagung <br>
-                                Jawa Tengah, Indonesia</p>
+                                Jawa Timur, Indonesia</p>
                             <a href="#" class="line-button">Dapatkan Map</a>
                         </div>
                     </div>
