@@ -15,11 +15,17 @@
     flex-grow: 1;
     margin-right: .5rem;
   }
+  .breadcam_bg_book{
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: bottom;
+    background-image:url('{{asset('img/banner/book.png')}}');
+  }
 </style>
 
 
 <!-- bradcam_area_start -->
-<div class="bradcam_area breadcam_bg_2">
+<div class="bradcam_area breadcam_bg_book">
   @if (request('book_id'))
     @if ($book->payment_status == 'settlement') 
     <h3>Status Booking</h3>
