@@ -32,7 +32,7 @@
 
 <!-- ================ contact section start ================= -->
 <section class="contact-section" style="padding-top: 40px">
-  <div class="container">
+  {{-- <div class="container">
     <ul class="nav nav-pills">
       <li class="nav-item">
         <a class="nav-link nav-tabs active" data-toggle="tab" href="#book">Video</a>
@@ -41,16 +41,17 @@
         <a class="nav-link nav-tabs" data-toggle="tab" href="#info">Gambar</a>
       </li>
     </ul>
-  </div>
+  </div> --}}
 
   <!-- Tab panes -->
   <div class="tab-content">
-    <div id="info" class="container tab-pane fade"><br>
+    <div id="info" class="container tab-pane active"><br>
+      <h4 style="font-weight: 900">Gambar</h4>
       <!-- Gallery -->
       <div class="row">
         @foreach ($images as $row)
         <div class="col-lg-4 col-md-12 mb-4 p-2">
-          <div style="
+          <img style="
           width: 100%;
           height: 194px;
           background-image: url('{{asset('storage/'.$row->url)}}');
@@ -88,6 +89,8 @@
     </div>
 
     <div id="book" class="container tab-pane active"><br>
+      <h4 style="font-weight: 900">Video</h4>
+
       <div class="row">
         @foreach ($videos as $row)
         <div class="col-md-6 page-yt-{{$row->id}}">
