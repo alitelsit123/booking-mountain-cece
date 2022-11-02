@@ -35,17 +35,17 @@
   <div class="container">
     <ul class="nav nav-pills">
       <li class="nav-item">
-        <a class="nav-link active" data-toggle="tab" href="#info">Gambar</a>
+        <a class="nav-link nav-tabs active" data-toggle="tab" href="#book">Video</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#book">Video</a>
+        <a class="nav-link nav-tabs" data-toggle="tab" href="#info">Gambar</a>
       </li>
     </ul>
   </div>
 
   <!-- Tab panes -->
   <div class="tab-content">
-    <div id="info" class="container tab-pane active"><br>
+    <div id="info" class="container tab-pane fade"><br>
       <!-- Gallery -->
       <div class="row">
         @foreach ($images as $row)
@@ -87,11 +87,11 @@
       <!-- Gallery -->
     </div>
 
-    <div id="book" class="container tab-pane fade"><br>
+    <div id="book" class="container tab-pane active"><br>
       <div class="row">
         @foreach ($videos as $row)
-        <div class="col-md-6">
-          {!!$row->url!!} 
+        <div class="col-md-6 page-yt-{{$row->id}}">
+          {!!$row->url!!}
         </div>
         @endforeach
       </div>
