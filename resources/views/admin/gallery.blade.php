@@ -100,7 +100,9 @@
       <ul class="list-group">
         @forelse ($videos as $row)
           <li class="list-group-item d-flex justify-content-between align-items-center">
-            <span>{{url($row->url)}}</span>
+            <div>
+              {!! $row->url !!}
+            </div>
             <div>
               <button class="btn btn-primary" data-toggle="modal" data-target="#edit-video-{{$row->id}}"><span class="fa fa-edit"></span></button>
               <a onclick="return confirm('Yakin ingin menghapus ?')" 
@@ -122,7 +124,7 @@
                     </div>
                     <div class="modal-body">
                       <input type="text" name="type" value="video" class="form-control d-none" />
-                      <input type="text" name="url" value="{{$row->url}}" class="form-control" placeholder="Embed Video" />
+                      <input type="text" name="urls" value="{{$row->url}}" class="form-control" placeholder="Embed Video" />
                     </div>
                     <div class="modal-footer">
                       <button type="submit" class="btn btn-primary">Simpan</button>
@@ -154,7 +156,7 @@
           </div>
           <div class="modal-body">
             <input type="text" name="type" value="video" class="form-control d-none" />
-            <input type="text" name="url" class="form-control" placeholder="Url Youtube / Url Video" />
+            <input type="text" name="urls" class="form-control" placeholder="Url Youtube / Url Video" />
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary">Simpan</button>

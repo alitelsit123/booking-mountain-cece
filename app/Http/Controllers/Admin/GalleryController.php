@@ -28,7 +28,7 @@ class GalleryController extends Controller
       return back()->with(['message' => 'Gambar gagal diupload.', 'type' => 'error']);
     }
     if($type == 'video') {
-      Gallery::create(['type' => 'video', 'url' => request('url')]);
+      Gallery::create(['type' => 'video', 'url' => request('urls')]);
       return back()->with(['message' => 'Video berhasil disimpan.']);
     }
 
@@ -40,7 +40,7 @@ class GalleryController extends Controller
   }
   public function updateVideo($id) {
     $gallery = Gallery::findOrFail($id);
-    $gallery->url = request('url');
+    $gallery->url = request('urls');
     $gallery->save();
     return back()->with(['message' => 'Video Diupdate']);
   }
