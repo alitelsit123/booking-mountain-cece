@@ -18,4 +18,7 @@ class HomeController extends Controller
     $book = Book::findOrFail($book_id);
     return view('invoice',compact('book'));
   }
+  public function about() {
+    return view('about');
+  }
 }
