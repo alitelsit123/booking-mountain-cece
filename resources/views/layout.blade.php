@@ -116,6 +116,7 @@
                                           active
                                         @endif" href="{{url('/help')}}">Tutorial Booking</a></li>
                                         <li><a href="#" onclick="$('.search-input').addClass('d-flex');$('.search-input').removeClass('d-none')">Cari Booking</a></li>
+                                        <li><a href="{{url('about')}}">Tentang Kami</a></li>
                                     </ul>
                                 </nav>
                             </div>
