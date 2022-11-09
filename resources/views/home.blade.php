@@ -41,12 +41,9 @@
               <div class="about_info">
                   <div class="section_title mb-20px">
                       <span>Tentang Kami</span>
-                      <h3>Gunung<br>
-                          Dengan Suasana Alam Terasa</h3>
+                      <h3>Gunung Budheg Tulungagung</h3>
                   </div>
-                  <p>Suscipit libero pretium nullam potenti. Interdum, blandit phasellus consectetuer dolor ornare
-                      dapibus enim ut tincidunt rhoncus tellus sollicitudin pede nam maecenas, dolor sem. Neque
-                      sollicitudin enim. Dapibus lorem feugiat facilisi faucibus et. Rhoncus.</p>
+                  <p>Gunung Budheg Tulungagung  merupakan suatu gunung yang berada di Kabupaten Tulungagung tepatnya di Desa Tanggung, Kecamatan Campurdarat. Gunung Budheg ini teramasuk gunung berapi non-aktif yang memiliki ketinggian hanya sekitar 600 mdpl. Gunung ini memiliki banyak keindahan yang tersimpan dan memiliki cerita menarik yang mengkaitkan tentang Gunung Budheg Tulungagung ini.</p>
                   {{-- <a href="#" class="line-button">Learn More</a> --}}
               </div>
           </div>
