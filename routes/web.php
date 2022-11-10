@@ -36,6 +36,7 @@ Route::middleware(['reload.book'])->group(function() {
 
 Route::get('/book/{book_id}/finish', [App\Http\Controllers\BookController::class, 'finish']);
 Route::get('/book/payment', [App\Http\Controllers\BookController::class, 'payment']);
+Route::get('/about', [App\Http\Controllers\HomeController::class, 'about']);
 
 
 Route::prefix('a')->middleware(['auth','auth.admin'])->group(function() {
