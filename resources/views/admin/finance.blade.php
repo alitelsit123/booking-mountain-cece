@@ -59,13 +59,15 @@
             @php
               $leader = $row->members()->whereRole('leader')->first();
             @endphp
+            @if ($leader)
             <tr>
               <td><strong>{{$row->invoice_code}}</strong></td>
               <td>{{number_format($row->total_price)}}</td>
               <td>{{$row->date}}</td>
               <td>{{$row->payment_status}}</td>
-              <td>{{ $leader->name }} berhasil membayar sebesar Rp. {{ number_format($row->total_price) }}</td>
+              <td>{{ $leader->name }} <strong>{{ $row->payment_status == 'settlement' ? 'berhasil membayar':'belum membayar' }}</strong> sebesar Rp. {{ number_format($row->total_price) }}</td>
             </tr>
+            @endif
           @empty
             <tr>
               <td colspan="5">Belum ada Transaksi</td>

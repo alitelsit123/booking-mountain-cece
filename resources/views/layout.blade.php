@@ -150,9 +150,17 @@
                         </div>
                         <div class="col-md-12 px-4 pb-2 d-none search-input">
                           <input class="form-control mr-sm-2 s-input" type="search" placeholder="Search" aria-label="Search">
+                          <button class="btn btn-default my-2 my-sm-0 mr-2 submit-search" type="button"><span class="fa fa-search"></span></button>
                           <button class="btn btn-default my-2 my-sm-0" type="button" onclick="$('.search-input').addClass('d-none');$('.search-input').removeClass('d-flex');"><span class="fa fa-times"></span></button>
                         </div>
                         <script>
+                          $('.submit-search').click(function(e) {
+                            const value = $('.s-input').val().replace(/\s/g, '')
+                            if(value && value.length > 0) {
+                              const url = '{{url('/book/payment')}}';
+                              document.location.href = url+'?book_id=INV.'+value
+                            }
+                          })
                           $('.s-input').keyup(function(e) {
                             if(e.key === 'Enter') {
                               const value = $('.s-input').val().replace(/\s/g, '')
@@ -186,7 +194,7 @@
                                 Alamat
                             </h3>
                             <p class="footer_text">Desa Tanggung, Kecamatan Campurdarat, Kabupaten Tulungagung <br>
-                                Jawa Tengah, Indonesia</p>
+                                Jawa Timur, Indonesia</p>
                             <a href="#" class="line-button">Dapatkan Map</a>
                         </div>
                     </div>

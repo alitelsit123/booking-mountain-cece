@@ -16,7 +16,7 @@
     margin-right: .5rem;
   }
   .breadcam_bg_book{
-    background-image:url({{asset('img/banner/finish.png')}})
+    background-image:url({{asset('img/banner/book.png')}})
   }
 </style>
 

@@ -18,6 +18,8 @@ Route::post('/login', [App\Http\Controllers\Auth\AuthController::class, 'doLogin
 Route::get('/register', [App\Http\Controllers\Auth\AuthController::class, 'register']);
 Route::post('/register', [App\Http\Controllers\Auth\AuthController::class, 'doRegister']);
 Route::get('/logout', [App\Http\Controllers\Auth\AuthController::class, 'logout']);
+Route::get('auth/google', [App\Http\Controllers\Auth\AuthController::class, 'redirectToGoogle']);
+Route::get('auth/callback', [App\Http\Controllers\Auth\AuthController::class, 'handleGoogleCallback']);
 
 
 Route::middleware(['reload.book'])->group(function() {

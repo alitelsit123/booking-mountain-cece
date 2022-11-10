@@ -36,8 +36,8 @@
             $leader = $row->members()->whereRole('leader')->first();
           @endphp
           <tr>
-            <th scope="row">{{$leader->nik}}</th>
-            <td>{{$leader->name}}</td>
+            <th scope="row">{{$leader ? $leader->nik: ''}}</th>
+            <td>{{$leader ? $leader->name: ''}}</td>
             <td>{{$row->members()->count()}}</td>
           </tr>
           @empty
@@ -108,7 +108,7 @@
           @endphp
           <tr>
             <th scope="row"><strong>{{$row->invoice_code}}</strong></th>
-            <td>{{$leader->name}}</td>
+            <td>{{$leader ? $leader->name: ''}}</td>
             <td>{{$row->date}}</td>
             <td>{{$row->members()->count()}}</td>
             <td>

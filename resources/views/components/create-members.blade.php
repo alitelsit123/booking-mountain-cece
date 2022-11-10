@@ -9,7 +9,7 @@
       @foreach (array_keys($member->except(['id'])->toArray()) as $col)
         <div class="col-md-6 my-2">
         @if (in_array($col, ['province','region','city','place']))
-        <select name="{{$col.'_'.$member['id']}}" class="js-example-basic-single-{{$col.'_'.$member['id']}} w-100 form-control" name="state">
+        <select required name="{{$col.'_'.$member['id']}}" class="js-example-basic-single-{{$col.'_'.$member['id']}} w-100 form-control" name="state">
         </select>
     
         <script>

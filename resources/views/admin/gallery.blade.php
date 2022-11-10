@@ -22,9 +22,15 @@
 
 @section('content')
 @if (session()->has('message'))
-<div class="alert alert-success">
-  {{session('message')}}
-</div>
+  @if (session('type') == 'error') 
+  <div class="alert alert-danger">
+    {{session('message')}}
+  </div>
+  @else
+  <div class="alert alert-success">
+    {{session('message')}}
+  </div>
+  @endif
 @endif
 <div class="container-fluid">
   <div class="card">
@@ -69,7 +75,7 @@
           </div>
           <div class="modal-body">
             <input type="text" name="type" value="image" class="form-control d-none" />
-            <input type="file" name="image" class="form-control" />
+            <input type="file" name="image" accept="image/*" required class="form-control" />
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary">Simpan</button>
@@ -94,7 +100,9 @@
       <ul class="list-group">
         @forelse ($videos as $row)
           <li class="list-group-item d-flex justify-content-between align-items-center">
-            <span>{{url($row->url)}}</span>
+            <div>
+              {!! $row->url !!}
+            </div>
             <div>
               <button class="btn btn-primary" data-toggle="modal" data-target="#edit-video-{{$row->id}}"><span class="fa fa-edit"></span></button>
               <a onclick="return confirm('Yakin ingin menghapus ?')" 
@@ -109,14 +117,14 @@
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Edit Video Url</h5>
+                      <h5 class="modal-title" id="exampleModalLabel">Edit Video Embed</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
                     <div class="modal-body">
                       <input type="text" name="type" value="video" class="form-control d-none" />
-                      <input type="text" name="url" value="{{$row->url}}" class="form-control" placeholder="Url Youtube / Url Video" />
+                      <input type="text" name="urls" value="{{$row->url}}" class="form-control" placeholder="Embed Video" />
                     </div>
                     <div class="modal-footer">
                       <button type="submit" class="btn btn-primary">Simpan</button>
@@ -148,7 +156,7 @@
           </div>
           <div class="modal-body">
             <input type="text" name="type" value="video" class="form-control d-none" />
-            <input type="text" name="url" class="form-control" placeholder="Url Youtube / Url Video" />
+            <input type="text" name="urls" class="form-control" placeholder="Url Youtube / Url Video" />
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary">Simpan</button>

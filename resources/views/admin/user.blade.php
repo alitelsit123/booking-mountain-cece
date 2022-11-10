@@ -74,9 +74,12 @@
           </tr>
         </thead>
         <tbody>
+          @php
+            $_n = 0;
+          @endphp
           @forelse ($users as $row)
             <tr>
-              <td>{{$row->id}}</td>
+              <td>{{++$_n}}</td>
               <td>{{$row->name}}</td>
               <td>{{$row->email}}</td>
               <td>{{$row->nik}}</td>
