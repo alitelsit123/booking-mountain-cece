@@ -9231,7 +9231,6 @@ a.text-dark:hover {
     tr {
         page-break-inside: avoid
     }
-    h2,
     @page {
         size: a3
     }
