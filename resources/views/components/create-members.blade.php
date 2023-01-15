@@ -65,12 +65,12 @@
           if($col == 'nik') {
             $placeholder = 'Masukkan Nik';
           }
-          if($col == 'age') {
-            $placeholder = 'Masukkan Usia';
-          }
-          if($col == 'weight') {
-            $placeholder = 'Masukkan Berat Badan';
-          }
+          // if($col == 'age') {
+          //   $placeholder = 'Masukkan Usia';
+          // }
+          // if($col == 'weight') {
+          //   $placeholder = 'Masukkan Berat Badan';
+          // }
         @endphp
           <input 
           type="text" 
